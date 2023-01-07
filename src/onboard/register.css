@@ -1,0 +1,151 @@
+.main-signup {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    height: 100vh;
+    width: 100vw;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    background: linear-gradient(to right, #b92b27, #1565c0)
+}
+.-hv{
+height: 100vh !important;
+}
+.cont{
+display: flex;
+align-items: center;
+align-content: center;
+justify-content: center;
+justify-items: center;
+}
+.cont-data{
+    max-width: 600px;
+}
+.input-group-text{
+    background-color: transparent !important;
+    border-left: none;
+    height: 100%;
+    border: 1px solid #3498db !important;
+    border-radius: 0px 15px 15px 0px !important;
+    color: gray !important;
+}
+a{
+    text-decoration: none !important;
+}
+.form-check-input{
+    margin-right: 8px !important;
+}
+.box {
+    padding: 40px;
+    position: relative;
+    justify-content: center;
+    background: #191919;
+    border-radius: 20px;
+    transition: 0.25s;
+    align-items: center;
+}
+.box-header{
+    font-size: 15px;
+    color: gray;
+    background: linear-gradient(to right, #b92b27, #1565c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.box-header-text{
+font-size: 25px;
+}
+.box-header hr{
+    background: linear-gradient(to right, #b92b27, #1565c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;   
+    margin-bottom: 30px;
+}
+.box-data{
+    max-width: 600px !important;
+}
+
+.box input[name="email"],
+.box input[type="password"] {
+    border: 0;
+    background: none;
+    display: block;
+    border: 1px solid #3498db;
+    padding: 10px 10px;
+    width: 100%;
+    outline: none;
+    color: white;
+    border-radius: 15px;
+    transition: 0.25s
+}
+.border-right{
+    border-right: none !important;
+}
+.box h1 {
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500
+}
+
+.box input[name="email"]:focus,
+.box input[type="password"]:focus {
+    border:1px solid linear-gradient(to right, red, purple);
+}
+.box Label{
+    color: gray;
+    margin-top: 10px;
+}
+.logo{
+    position: absolute;
+    margin: 30px;
+}
+.error{
+    color: red;
+    font-size: 10px;
+    margin: 5px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
+    -webkit-transition-delay: 9999s;
+}
+.signup{
+    text-decoration: none;
+    color: gray;
+    font-size: 13px;
+    text-align: center;
+    padding-top: 15px;
+}
+.signup a{
+    text-decoration: none;
+}
+.button-submit{
+    display: flex;
+    justify-content: center;
+
+}
+.button{
+    margin-top: 10px;
+    background: linear-gradient(to right, #b92b27, #1565c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border:1px solid gray;
+    color: white;
+    text-transform: uppercase;
+    padding: 6px;
+    border-radius: 5px;
+}
+.forgot-pass{
+    position: relative;
+    text-align: right;
+    margin-top: 15px;
+    color: gray;
+    margin-bottom: 5px;
+    text-decoration: none;
+}
+.forgot-pass Link{
+    text-decoration: none;
+}

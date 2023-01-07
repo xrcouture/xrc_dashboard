@@ -1,0 +1,137 @@
+.logo{
+    margin-top: 25px;
+    height: 75px;
+    width: auto;
+}
+.main-signup {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    height: 100vh;
+    width: 100vw;
+    overflow-y: hidden;
+    background: linear-gradient(to right, #b92b27, #1565c0)
+}
+.height-vh{
+    height: 100vh;
+}
+.height-vh-col{
+    align-items: center;
+}
+
+.card{
+    position: relative;
+    border:none !important;
+    background-color: transparent !important;
+    align-self: center;
+    justify-self: center;
+    /* display: flex; */
+    /* align-content: center;
+     */
+    /* justify-content: center; */
+}
+.logo3{
+    position: relative;
+    height: 180vh;
+    margin-left:-20vw;
+    margin-top: -40vh !important;
+    display: flex;
+}
+.box {
+    /* margin-top: 20px; */
+    max-width: 400px;
+    padding: 40px;
+    position: relative;
+    justify-content: center;
+    background: #191919;
+    border-radius: 20px;
+    transition: 0.25s;
+    align-items: center;
+}
+.box-header{
+    font-size: 15px;
+    color: gray;
+    /* text-align: center; */
+    background: linear-gradient(to right, #b92b27, #1565c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.box-header-text{
+font-size: 25px;
+}
+.box-header hr{
+    background: linear-gradient(to right, #b92b27, #1565c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;   
+    margin-bottom: 30px;
+}
+
+.box input[type="text"],
+.box input[type="password"] {
+    border: 0;
+    background: none;
+    display: block;
+    border: 1px solid #3498db;
+    padding: 10px 10px;
+    width: 100%;
+    outline: none;
+    color: white;
+    border-radius: 15px;
+    transition: 0.25s
+}
+
+.box h1 {
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500
+}
+
+.box input[type="text"]:focus,
+.box input[type="password"]:focus {
+    /* width: 300px; */
+    border:1px solid linear-gradient(to right, red, purple);
+}
+.box Label{
+    color: gray;
+}
+
+.logo2{
+    position: relative;
+    height: 15vh;
+    width: auto;
+}
+
+.signup{
+    text-decoration: none;
+    color: gray;
+    font-size: 13px;
+    text-align: center;
+    padding-top: 15px;
+    /* font-family: 'Times New Roman', Times, serif; */
+}
+.signup a{
+    text-decoration: none;
+}
+.button-submit{
+    display: flex;
+    justify-content: center;
+
+}
+.button{
+    margin-top: 10px;
+    background: linear-gradient(to right, #b92b27, #1565c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* background-color: transparent; */
+    border:1px solid gray;
+    color: white;
+    text-transform: uppercase;
+    padding: 8px 6px;
+    border-radius: 5px;
+}
+ /* @media screen and (min-width: 720px)  {
+    .box{
+        width: ;
+    }
+} */
