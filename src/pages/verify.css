@@ -1,10 +1,10 @@
 @keyframes modal-icon1 {
-  0%   {
+  0% {
     background-color: green;
     color: white;
     transform: rotate(0);
   }
-  100%   {
+  100% {
     color: green;
     background-color: white;
     transform: rotate(360deg);
@@ -12,41 +12,41 @@
 }
 
 @keyframes modal-icon2 {
-    0%   {
-      background-color: red;
-      color: white;
-      transform: rotate(0);
-    }
-    100%   {
-      color: red;
-      background-color: white;
-      transform: rotate(360deg);
-    }
+  0% {
+    background-color: red;
+    color: white;
+    transform: rotate(0);
   }
-
-.modal-icon-success{
-    font-size: 60px;
-    color: green;
-    position: relative;
-    top: -30px;
-    background-color: white;
-    border-radius: 50%;
-    padding: 10px;
-    animation: modal-icon1 1.5s ;
-}
-
-.modal-icon-error{
-    font-size: 60px;
+  100% {
     color: red;
-    position: relative;
-    top: -30px;
     background-color: white;
-    border-radius: 50%;
-    padding: 10px;
-    animation: modal-icon2 1.5s ;
+    transform: rotate(360deg);
+  }
 }
 
-.modal-custom{
-    background-color: black !important;
-    color: gray;
+.modal-icon-success {
+  font-size: 60px;
+  color: green;
+  position: relative;
+  top: -30px;
+  background-color: white;
+  border-radius: 50%;
+  padding: 10px;
+  animation: modal-icon1 1.5s;
+}
+
+.modal-icon-error {
+  font-size: 60px;
+  color: red;
+  position: relative;
+  top: -30px;
+  background-color: white;
+  border-radius: 50%;
+  padding: 10px;
+  animation: modal-icon2 1.5s;
+}
+
+.modal-custom {
+  background-color: black !important;
+  color: gray;
 }
