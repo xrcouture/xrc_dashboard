@@ -17,6 +17,7 @@ import ProductList from "./pages/ProductList.jsx";
 import VerifyEmail from "./pages/VerifyEmail.js";
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
+import Upload from "./pages/Upload"
 
 function App() {
   const CLIENT_ID = "502666256532-09c3r3cfdh8028t1n3lrl69hpeaq000v.apps.googleusercontent.com"
@@ -52,6 +53,8 @@ function App() {
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/product" element={<Product />} />
           <Route path="/productList" element={<ProductList />} />
+          <Route path="/upload" element={<Upload />} />
+          <Route path="/admin/upload" element={<Upload role="admin" />} />
         </Routes>
       </Sidebar>
     }
