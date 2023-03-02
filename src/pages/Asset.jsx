@@ -19,19 +19,13 @@ const Comment = () => {
 
   return (
     <div>
-      <Breadcrumb>
-        <BreadcrumbItem>
-          <Link href="#">3D Assests</Link>
-        </BreadcrumbItem>
-        <BreadcrumbItem className="text-muted">
-          Create New 3D Asset
-        </BreadcrumbItem>
-      </Breadcrumb>
+
+      <h1>UPLOAD</h1>
 
       <div className="asset-header">
-        <h1 className="asset-header_text">Upload Files</h1>
+        {/* <h1 className="asset-header_text">Upload Files</h1> */}
 
-        <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+        {/* <Dropdown isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle className="assest-haeder_drop">
             <span className="text-dropdown">Type of file entry</span>
             <RiArrowDropDownLine className="mr-4" />
@@ -43,15 +37,15 @@ const Comment = () => {
               Multiple
             </DropdownItem>
           </DropdownMenu>
-        </Dropdown>
+        </Dropdown> */}
       </div>
-      {single ? (
+      {/* {single ? (
         <>
           <h1>single</h1>
         </>
       ) : (
         <Multiple />
-      )}
+      )} */}
     </div>
   );
 };

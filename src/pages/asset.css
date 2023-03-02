@@ -32,9 +32,9 @@
   text-align: center;
   border: none;
 }
-input[type="file"] {
+/* input[type="file"] {
   display: none;
-}
+} */
 
 .custom-file-upload {
   width: 311px;

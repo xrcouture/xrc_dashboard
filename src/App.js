@@ -19,6 +19,7 @@ import { gapi } from "gapi-script";
 import { useEffect } from "react";
 import ManageAssets from "./Asset_components/ManageAssets";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Upload from "./pages/Upload"
 
 function App() {
   const CLIENT_ID = "502666256532-09c3r3cfdh8028t1n3lrl69hpeaq000v.apps.googleusercontent.com"
@@ -56,6 +57,8 @@ function App() {
           <Route path="/product" element={<Product />} />
           <Route path="/productList" element={<ProductList />} />
           <Route path="/:brands/manage" element={<ManageAssets />} />
+          <Route path="/upload" element={<Upload />} />
+          <Route path="/admin/upload" element={<Upload role="admin" />} />
         </Routes>
       </Sidebar>
     }
