@@ -17,6 +17,8 @@ import ProductList from "./pages/ProductList.jsx";
 import VerifyEmail from "./pages/VerifyEmail.js";
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
+import ManageAssets from "./Asset_components/ManageAssets";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const CLIENT_ID = "502666256532-09c3r3cfdh8028t1n3lrl69hpeaq000v.apps.googleusercontent.com"
@@ -45,6 +47,7 @@ function App() {
     {
       <Sidebar>
         <Routes>
+          
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/collections" element={<About />} />
@@ -52,6 +55,7 @@ function App() {
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/product" element={<Product />} />
           <Route path="/productList" element={<ProductList />} />
+          <Route path="/:brands/manage" element={<ManageAssets />} />
         </Routes>
       </Sidebar>
     }

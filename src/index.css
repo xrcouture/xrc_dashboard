@@ -11,6 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -25,6 +26,7 @@ code {
 main {
   width: 100%;
   padding: 20px;
+  background: linear-gradient(180deg, #BDA7A7 0%, rgba(237, 112, 222, 0.805781) 58.85%, rgba(38, 15, 49, 0.67) 100%);
 }
 .sidebar {
   background: #000;

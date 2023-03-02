@@ -5,7 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import ModalSuccess from "../components/ModalSuccess";
 import "./verify.css";
 import { MdVerified, MdError } from "react-icons/md";
-import Loader from "../components/Loader";
 
 function VerifyEmail() {
   const [searchParams] = useSearchParams();
@@ -41,7 +40,7 @@ function VerifyEmail() {
   return (
     <>
       {load ? (
-        <Loader />
+          <h1>Loading</h1>
       ) : (
         <div className='min-vh-100 d-inline-block"'>
           {/* Email Verification Page */}

@@ -21,6 +21,7 @@ function Signin() {
   const onSuccess = (res) => {
     console.log("Register successfulyyy",res)
     setShow(res.profileObj.imageUrl)
+    window.location.replace("/")
     toast.success("Login Successful")
   }
   const onFailure = res => {
@@ -124,7 +125,7 @@ function Signin() {
               onSuccess={onSuccess}
               onFailure={onFailure}
               cookiePolicy={"single_host_origin"}
-              isSignedIn={true}
+              // isSignedIn={true}
               />
               {/* <img src={show} alt="" className="google-img"/> */}
             </div>
