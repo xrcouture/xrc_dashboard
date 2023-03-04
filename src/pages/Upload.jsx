@@ -5,7 +5,7 @@ import { Context } from "../Context";
 
 import axios from "axios";
 
-const Comment = (props) => {
+const Comment = () => {
 
   const [selectedfile, SetSelectedFile] = useState([])
   const [platforms, selectPlatforms] = useState({
@@ -125,9 +125,9 @@ const Comment = (props) => {
     <Context.Provider value={{ files: [selectedfile, SetSelectedFile], platform: [platforms, selectPlatforms], assetData: [assetName, setAssetName], thumbnailData: [thumbnailFile, setThumbnailFile] }}>
       <div>
 
-        <FileUpload role={props.role} />
+        <FileUpload />
 
-        {props.role === "brand" ? <PlatformSelect /> : ""}
+        <PlatformSelect />
 
         <div className="kb-buttons-box mt-5 text-center d-flex justify-content-left align-items-center">
           {/* <button type="submit" className="btn btn-primary form-submit">Save to drafts</button> */}

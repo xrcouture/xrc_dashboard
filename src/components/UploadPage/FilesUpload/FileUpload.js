@@ -5,7 +5,7 @@ import { Context } from '../../../Context'
 import './FileUpload.css'
 import thumbnail from '../../../assets/thumbnail.png'
 
-const FileUpload = (props) => {
+const FileUpload = () => {
 
   const { files } = useContext(Context)
   const [selectedfile, SetSelectedFile] = files
@@ -102,18 +102,14 @@ const FileUpload = (props) => {
         // check file type : e.target.files[i].type
         // check file size : e.target.files[i].size *done
 
-        if (props.role === "admin") {
-          if (!isValidFileUploadedAdmin(e.target.files[i])) {
-            alert(file.name + "This file is not supported")
-            return;
-          }
-        }
-        else {
+          // if (!isValidFileUploadedAdmin(e.target.files[i])) {
+          //   alert(file.name + "This file is not supported")
+          //   return;
+          // }
           if (!isValidFileUploaded(e.target.files[i])) {
             alert(file.name + "This file is not supported")
             return;
           }
-        }
 
 
         if (e.target.files[i].size > 20971520) {
