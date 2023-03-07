@@ -1151,10 +1151,22 @@ const l = [
           cancelButtonText: 'No, cancel!',
           reverseButtons: true,
         })
-        .then((result) => {
+        .then(async(result) => {
           if (result.isConfirmed) {
+            var name = []
+            selectedRows.map(row => {
+              name.push(row.assetName)
+            })
             console.log(row)
-            setData(differenceBy(data, [row], 'id'));
+            console.log({
+              brand:"Zara",
+              name:name
+            })
+            await axios.delete("http://localhost:5000/brands/delete",{
+              brand:"Zara",
+              name:name
+            })
+            // setData(differenceBy(data, [row], 'id'));
             swalWithBootstrapButtons.fire('Deleted!', 'Your file has been deleted.', 'success')
           } else if (
             /* Read more about handling dismissals below */
@@ -1234,9 +1246,21 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => (
           cancelButtonText: 'No, cancel!',
           reverseButtons: true,
         })
-        .then((result) => {
+        .then(async(result) => {
           if (result.isConfirmed) {
             setToggleCleared(!toggleCleared);
+            var name = []
+            selectedRows.map(row => {
+              name.push(row.assetName)
+            })
+            console.log({
+              brand:"Zara",
+              name:name
+            })
+            await axios.delete("http://localhost:5000/brands/delete",{data:{
+              brand:"Zara",
+              name:name
+            }}).then(res => console.log(res))
     				setData(differenceBy(data, selectedRows, '_id'));
             swalWithBootstrapButtons.fire('Deleted!', 'Your file has been deleted.', 'success')
           } else if (
@@ -1308,7 +1332,9 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => (
               </i>
             </div>
         <button className='btn-create'>
+          <Link to={'/upload'}>
             Create New 3d Asset +
+          </Link>
         </button>
     <div className='tables mt-4' style={{position:"relative"}}>
         <DataTable 
