@@ -1,8 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Clash Display Medium";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -10,6 +8,27 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+@font-face {
+  font-family: Clash Display Bold;
+  src: url("https://xrcouture-xrcie.s3.ap-south-1.amazonaws.com/XRC_Homepage/homepage_contents/ClashDisplay-Bold.ttf");
+}
+@font-face {
+  font-family: Clash Display Light;
+  src: url("https://xrcouture-xrcie.s3.ap-south-1.amazonaws.com/XRC_Homepage/homepage_contents/ClashDisplay-Light.ttf");
+}
+@font-face {
+  font-family: Clash Display ExtraLight;
+  src: url("https://xrcouture-xrcie.s3.ap-south-1.amazonaws.com/XRC_Homepage/homepage_contents/ClashDisplay-Extralight.ttf");
+}
+@font-face {
+  font-family: Clash Display Medium;
+  src: url("https://xrcouture-xrcie.s3.ap-south-1.amazonaws.com/XRC_Homepage/homepage_contents/ClashDisplay-Medium.ttf");
+}
+@font-face {
+  font-family: Clash Display SemiBold;
+  src: url("https://xrcouture-xrcie.s3.ap-south-1.amazonaws.com/XRC_Homepage/homepage_contents/ClashDisplay-Semibold.ttf");
 }
 
 * {
@@ -25,7 +44,7 @@ code {
 }
 main {
   width: 100%;
-  padding: 20px;
+  /* padding: 20px; */
   background: linear-gradient(180deg, #BDA7A7 0%, rgba(237, 112, 222, 0.805781) 58.85%, rgba(38, 15, 49, 0.67) 100%);
 }
 .sidebar {

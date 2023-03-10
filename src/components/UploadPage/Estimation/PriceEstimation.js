@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { Context } from '../../../Context'
 
 const PriceEstimation = (props) => {
 
-  const [cost, setCost] = useState(0)
-  const [days, setDays] = useState(0)
+  const { costData, daysData } = useContext(Context)
+  const [cost, setCost] = costData
+  const [days, setDays] = daysData
 
   const fav = Object.keys(props.platforms)
     .filter((key) => props.platforms[key])
@@ -20,13 +22,13 @@ const PriceEstimation = (props) => {
       <div className='d-flex justify-content-around mt-5'>
         <div>
           <h4>Approximate Budget:
-            <h1 className='text-center mt-3'>${cost}</h1>
+            <div className='text-center mt-3' style={{fontSize: "5rem"}}>${cost}</div>
           </h4>
         </div>
 
         <div>
           <h4>Expected Delivery Time:
-            <h1 className='text-center mt-3'>{days}d</h1>
+            <div className='text-center mt-3' style={{fontSize: "5rem"}}>{days}d</div>
           </h4>
         </div>
 

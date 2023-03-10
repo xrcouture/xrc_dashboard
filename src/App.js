@@ -20,6 +20,9 @@ import { useEffect } from "react";
 import ManageAssets from "./Asset_components/ManageAssets";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Upload from "./pages/Upload"
+import AdminPage from "./pages/AdminPage";
+import Update from "./pages/Update";
+import AssetView from "./pages/AssetView";
 
 function App() {
   const CLIENT_ID = "502666256532-09c3r3cfdh8028t1n3lrl69hpeaq000v.apps.googleusercontent.com"
@@ -58,7 +61,9 @@ function App() {
           <Route path="/productList" element={<ProductList />} />
           <Route path="/:brands/manage" element={<ManageAssets />} />
           <Route path="/upload" element={<Upload />} />
-          <Route path="/admin/upload" element={<Upload role="admin" />} />
+          <Route path="/admin/upload" element={<AdminPage />} />
+          <Route path="/brands/update" element={<Update />} />
+          <Route path="/view" element={<AssetView />} />
         </Routes>
       </Sidebar>
     }

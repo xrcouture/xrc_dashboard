@@ -1,15 +1,11 @@
-import React, { useContext } from 'react'
-import { Context } from '../../../Context'
-
+import React, { useState } from 'react'
 import shortid from "shortid"
+import axios from 'axios'
 
-import './FileUpload.css'
+import '../components/UploadPage/FilesUpload/FileUpload.css'
 
-const FileUpload = () => {
-
-  // STATES
-  const { filesData } = useContext(Context)
-  const [selectedfile, SetSelectedFile] = filesData
+const Update = () => {
+  const [selectedfile, SetSelectedFile] = useState([])
 
   const filesizes = (bytes, decimals = 2) => {
     if (bytes === 0) return '0 Bytes';
@@ -22,11 +18,6 @@ const FileUpload = () => {
 
   const isValidFileUploaded = (file) => {
     const validExtensions = ["png", "jpg", "jpeg", "webp", "mp4", "mov", "pdf", "blend", "glb", "gltf", "fbx", "obj", "usd", "c4d", "max", "mb", "unitypackage", "dae", "dwg"]
-    return validExtensions.includes(file.name.substring(file.name.lastIndexOf('.') + 1, file.name.length) || file.name)
-  }
-
-  const isValidFileUploadedAdmin = (file) => {
-    const validExtensions = ["blend", "glb", "gltf", "fbx", "obj", "usd", "c4d", "max", "mb", "unitypackage", "dae", "dwg"]
     return validExtensions.includes(file.name.substring(file.name.lastIndexOf('.') + 1, file.name.length) || file.name)
   }
 
@@ -100,10 +91,55 @@ const FileUpload = () => {
 
   }
 
+  const handleClick = async (event) => {
+
+    event.preventDefault()
+
+    const assetName = "Coats"
+    const brandName = "Zara"
+
+    var filesArray = []
+
+    filesArray = selectedfile.map((item) => item.fileData)
+
+    if (!filesArray.length) {
+      console("Upload atleast 1 file to continue")
+      return
+    }
+
+    console.log("FILES: ", filesArray)
+
+    var formData = new FormData()
+
+    formData.append('brand', brandName)
+    formData.append("name", assetName)
+
+    for (let i = 0; i < filesArray.length; i++) {
+      formData.append('assets', filesArray[i])
+    }
+
+    console.log([...formData])
+
+    axios
+      .post("https://xrcdashboard.onrender.com/brands/update", formData
+        , {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': "multipart/form-data"
+          }
+        })
+      .then((response) => {
+        console.log(response.data)
+      })
+
+    console.log("Submitted")
+  }
+
+
   return (
 
-    <div className='d-flex flex-column'>
-      <div className='upload-title'>Upload Files</div>
+    <div className='d-flex flex-column' style={{background: "#000", padding: "3em 5em", height: "100%"}}>
+      <div className='upload-title'>Upload Requested Files</div>
 
       <div className="fileupload-view upload-contents">
         <div className="row justify-content-center m-0">
@@ -162,9 +198,13 @@ const FileUpload = () => {
         </div>
       </div>
 
+      <div className="kb-buttons-box mt-5 text-center d-flex justify-content-left align-items-center">
+        <button type="submit" className="form-submit uc-buttons" onClick={handleClick} style={{ marginRight: "1rem" }}>Submit</button>
+        {/* <p>{props.errorMsg}</p> */}
+      </div>
     </div>
 
   );
 }
 
-export default FileUpload
+export default Update
