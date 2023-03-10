@@ -10,12 +10,16 @@ import NextButton from "../components/UploadPage/NextButton"
 import "../components/UploadPage/Upload.css"
 
 import axios from "axios"
+import { useParams, useNavigate } from "react-router"
 
 
 const Upload = () => {
+  const navigate = useNavigate();
+
+  const { brand } = useParams()
 
   // GLOBAL STATE
-  const brandName = "Zara"
+  const brandName = brand
 
 
   const [assetName, setAssetName] = useState({
@@ -71,7 +75,7 @@ const Upload = () => {
       document.getElementById("page3").classList.add("active")
     }
   }, [page])
-  
+
 
 
   const handleSumbit = async (event) => {
@@ -135,6 +139,8 @@ const Upload = () => {
 
     }
 
+    setSubmitting(true)
+
     var formData = new FormData()
 
     formData.append('brand', brandName)
@@ -191,6 +197,12 @@ const Upload = () => {
         })
       .then((response) => {
         console.log(response.data)
+        setSubmitting(false)
+        navigate(`/brands/${brandName}`);
+      })
+      .catch((err) => {
+        console.log(err)
+        setSubmitting(false)
       })
 
     console.log("Submitted")
@@ -199,6 +211,8 @@ const Upload = () => {
   const saveToDrafts = async (event) => {
 
     event.preventDefault()
+
+    setSubmitting(true)
 
     var formData = new FormData()
 
@@ -248,6 +262,8 @@ const Upload = () => {
       }
     }
 
+    setSubmitting(true)
+
 
     // SAVING
     formData.append('brand', brandName)
@@ -294,6 +310,12 @@ const Upload = () => {
         })
       .then((response) => {
         console.log(response.data)
+        setSubmitting(false)
+        navigate(`/brands/${brandName}`);
+      })
+      .catch((err) => {
+        console.log(err)
+        setSubmitting(false)
       })
 
     console.log("Saved")

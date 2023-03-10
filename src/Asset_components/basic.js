@@ -151,7 +151,7 @@ export default function MyComponent(props) {
           selector: 'assetName',
           sortable: true,
           cell:(row)=>(
-            <Link to={`/Zara/${row.assetName}`}>{row.assetName}</Link>
+            <Link to={row.status === "Action Required" ? `/brands/${brandName}/${row.assetName}/update` : `/brands/${brandName}/${row.assetName}`}>{row.assetName}</Link>
           )
       },
       {
@@ -1119,10 +1119,10 @@ const l = [
 	const filteredItems = data.filter(
 		item => item.assetName && item.assetName.toLowerCase().includes(props.filterText.toLowerCase()),
 	);
-
+  const {brandName} = useParams()
   const fetchAsset = async() =>{
     await axios.post('https://xrcdashboard.onrender.com/brands/assets',{
-      brand:"Zara"
+      brand:brandName
     }).then(res =>{
       setData(res.data.assets)
   })

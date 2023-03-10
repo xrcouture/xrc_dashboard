@@ -7,8 +7,11 @@ import clonexImg from '../assets/clonex.png'
 import decentralandImg from '../assets/decenterland.png'
 
 import axios from 'axios'
+import { useParams } from 'react-router'
 
 const AssetView = () => {
+
+  const {brands, assetName1} = useParams()
 
   const [assetTitle, setAssetTitle] = useState("")
   const [description, setDescription] = useState("")
@@ -40,8 +43,8 @@ const AssetView = () => {
   useEffect(() => {
     axios
       .post("https://xrcdashboard.onrender.com/brands/asset", {
-        brand: "Zara",
-        name: "Coats"
+        brand: brands,
+        name: assetName1
       }
         , {
           headers: {

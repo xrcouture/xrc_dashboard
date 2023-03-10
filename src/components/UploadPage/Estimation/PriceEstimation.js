@@ -19,7 +19,7 @@ const PriceEstimation = (props) => {
   return (
     <>
       {/* {console.log(props.platforms)} */}
-      <div className='d-flex justify-content-around mt-5'>
+      <div className='d-flex justify-content-around mt-5' style={{color: "white", fontFamily: "Clash Display Bold", width: "85%"}}>
         <div>
           <h4>Approximate Budget:
             <div className='text-center mt-3' style={{fontSize: "5rem"}}>${cost}</div>

@@ -30,6 +30,7 @@ import 'swiper/css';
 import ChatBody from "./components/chatBody/ChatBody";
 import AdminDashboard from "./New-src/AdminDashboard/AdminDashboard";
 import AdminBrand from "./New-src/AdminDashboard/Pages/AdminPage/Dashboard";
+import ProtectedRoutes from "./ProtectedRoute";
 
 function App() {
   const CLIENT_ID = "502666256532-09c3r3cfdh8028t1n3lrl69hpeaq000v.apps.googleusercontent.com"
@@ -58,23 +59,30 @@ function App() {
     {
       <Sidebar>
         <Routes>
-          <Route path="/" exact element={<Dashboard1 />} />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/collections" element={<About />} />
           <Route path="/asset" element={<Comment />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/product" element={<Product />} />
-          <Route path="/productList" element={<ProductList />} />
-          <Route path="/:brands/assets" element={<ManageAssets />} />
-          <Route path="/upload" element={<Upload />} />
-          <Route path="/:brands/:assetName1/view" element={<Upload1 />} />
-          <Route path="/:brands/:assetName1/edit" element={<Assetedit />} />
           <Route path="/support" element={<ChatBody />} />
-          <Route path="/admin/brands" element={<AdminDashboard />} />
-          <Route path="/admin/:brand/assets" element={<AdminBrand />} />
-          <Route path="/admin/upload" element={<AdminPage />} />
-          <Route path="/brands/update" element={<Update />} />
-          <Route path="/view" element={<AssetView />} />
+
+
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/brands/:brandName" exact element={<Dashboard1 />} />
+            <Route path="/brands/:brand/create" element={<Upload />} />
+            <Route path="/admin/brands" element={<AdminDashboard />} />
+            <Route path="/admin/:brand/assets" element={<AdminBrand />} />
+            <Route path="/brands/:brands/:assetName1" element={<AssetView />} />
+            <Route path="/brands/:brandName/:assetName/update" element={<Update />} />
+          </Route>
+
+
+          {/* <Route path="/admin/upload" element={<AdminPage />} /> */}
+          {/* <Route path="/:brands/:assetName1" element={<Upload1 />} /> */}
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          {/* <Route path="/productList" element={<ProductList />} /> */}
+          {/* <Route path="/:brands/assets" element={<ManageAssets />} /> */}
+          {/* <Route path="/:brands/:assetName1/edit" element={<Assetedit />} /> */}
+
         </Routes>
       </Sidebar>
     }

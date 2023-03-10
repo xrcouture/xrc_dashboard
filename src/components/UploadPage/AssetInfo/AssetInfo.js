@@ -6,6 +6,7 @@ import axios from 'axios'
 import thumbnail from '../../../assets/thumbnail.png'
 
 import "./AssetInfo.css"
+import { useParams } from 'react-router'
 
 
 const AssetInfo = () => {
@@ -31,11 +32,13 @@ const AssetInfo = () => {
   const uploadIMG = "https://xrcouture-xrcie.s3.ap-south-1.amazonaws.com/XRC_Dashboard/Website_Contents/upload.webp"
   const deleteIMG = "https://xrcouture-xrcie.s3.ap-south-1.amazonaws.com/XRC_Dashboard/Website_Contents/delete.webp"
 
+  const { brand } = useParams()
+
   // FETCHING PREVS ASSETS
   useEffect(() => {
     axios
       .post("http://localhost:5000/brands/assetNames", {
-        brand: "Zara"
+        brand: brand
       }, {
         headers: {
           'Access-Control-Allow-Origin': '*'

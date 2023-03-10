@@ -3,9 +3,16 @@ import shortid from "shortid"
 import axios from 'axios'
 
 import '../components/UploadPage/FilesUpload/FileUpload.css'
+import { useParams, useNavigate } from 'react-router'
 
 const Update = () => {
+  const navigate = useNavigate();
+
   const [selectedfile, SetSelectedFile] = useState([])
+
+  const [submitting, setSubmitting] = useState(false)
+
+  const { brandName, assetName } = useParams()
 
   const filesizes = (bytes, decimals = 2) => {
     if (bytes === 0) return '0 Bytes';
@@ -45,14 +52,14 @@ const Update = () => {
         // check file type : e.target.files[i].type
         // check file size : e.target.files[i].size *done
 
-          // if (!isValidFileUploadedAdmin(e.target.files[i])) {
-          //   alert(file.name + "This file is not supported")
-          //   return;
-          // }
-          if (!isValidFileUploaded(e.target.files[i])) {
-            alert(file.name + "This file is not supported")
-            return;
-          }
+        // if (!isValidFileUploadedAdmin(e.target.files[i])) {
+        //   alert(file.name + "This file is not supported")
+        //   return;
+        // }
+        if (!isValidFileUploaded(e.target.files[i])) {
+          alert(file.name + "This file is not supported")
+          return;
+        }
 
 
         if (e.target.files[i].size > 20971520) {
@@ -95,9 +102,6 @@ const Update = () => {
 
     event.preventDefault()
 
-    const assetName = "Coats"
-    const brandName = "Zara"
-
     var filesArray = []
 
     filesArray = selectedfile.map((item) => item.fileData)
@@ -106,6 +110,8 @@ const Update = () => {
       console("Upload atleast 1 file to continue")
       return
     }
+
+    setSubmitting(true)
 
     console.log("FILES: ", filesArray)
 
@@ -130,6 +136,12 @@ const Update = () => {
         })
       .then((response) => {
         console.log(response.data)
+        setSubmitting(false)
+        navigate(`/brands/${brandName}`);
+      })
+      .catch((err) => {
+        console.log(err)
+        setSubmitting(false)
       })
 
     console.log("Submitted")
@@ -138,7 +150,7 @@ const Update = () => {
 
   return (
 
-    <div className='d-flex flex-column' style={{background: "#000", padding: "3em 5em", height: "100%"}}>
+    <div className='d-flex flex-column' style={{ background: "#000", padding: "3em 5em", height: "100%" }}>
       <div className='upload-title'>Upload Requested Files</div>
 
       <div className="fileupload-view upload-contents">
@@ -199,7 +211,11 @@ const Update = () => {
       </div>
 
       <div className="kb-buttons-box mt-5 text-center d-flex justify-content-left align-items-center">
-        <button type="submit" className="form-submit uc-buttons" onClick={handleClick} style={{ marginRight: "1rem" }}>Submit</button>
+        <button disabled={submitting} type="submit" className="form-submit uc-buttons" onClick={handleClick} style={{ marginRight: "1rem" }}>Submit</button>
+        {submitting ?
+          <div class="spinner-border text-light" role="status" style={{ alignSelf: "end", marginBottom: "0.7em" }}>
+            <span class="sr-only">Loading...</span>
+          </div> : ""}
         {/* <p>{props.errorMsg}</p> */}
       </div>
     </div>
