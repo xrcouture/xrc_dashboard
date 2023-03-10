@@ -35,22 +35,24 @@ function Data() {
               initialValues={{
                 firstname: "",
                 lastname: "",
-                brandname: "",
+                brandName: "",
                 brandlink: "",
                 productname: "",
                 subdomain: "",
-              }}
-              validationSchema={SignupSchema}
+                email:localStorage.getItem("email")
+              }}  
+              // validationSchema={SignupSchema}
               onSubmit={(values) => {
+                console.log("called")
+                console.log({...values,email:localStorage.getItem('email')})
                 axios
-                  .post("http://localhost:5000/auth/form", values, {
-                    withCredentials: true,
-                  })
+                  .post("http://localhost:5000/auth/form", {...values,email:localStorage.getItem('email')})
                   .then((res) => {
                     console.log(res);
                     window.location.replace('/')
                   });
                 console.log(values);
+                localStorage.setItem("brand", values.brandName);
                 values.password.match(
                   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
                 ) == null
@@ -106,14 +108,14 @@ function Data() {
                   <Row>
                     <Col>
                       <Label for="brandname">Brand Leagal Name</Label>
-                      <Field type="text" name="brandname" />
+                      <Field type="text" name="brandName" />
                       <ErrorMessage
-                        name="brandname"
+                        name="brandName"
                         className="error"
                         component="div"
                       />
                     </Col>
-                    <Col>
+                    {/* <Col>
                       <Label for="productname">Product Name</Label>
                       <Field type="text" name="productname" />
                       <ErrorMessage
@@ -121,7 +123,7 @@ function Data() {
                         className="error"
                         component="div"
                       />
-                    </Col>
+                    </Col> */}
                   </Row>
 
                   <Row>
@@ -135,7 +137,7 @@ function Data() {
                       />
                     </Col>
                   </Row>
-                  <Label for="subdomain">Sub Domain</Label>
+                  {/* <Label for="subdomain">Sub Domain</Label>
                   <div className="input-group mb-3">
                     <input
                       type="text"
@@ -157,7 +159,7 @@ function Data() {
                     name="subdomain"
                     className="error"
                     component="div"
-                  />
+                  /> */}
                   <label>
                     <Field
                       type="checkbox"
@@ -170,10 +172,8 @@ function Data() {
                       <a href="/terms"> Terms of Use and Privacy Policy.</a>
                     </span>
                   </label>
-
-                  {/* {errors.password && errorPass} */}
                   <div className="button-submit mt-2">
-                    <button type="submit" className="button">
+                    <button type="submit" className="button" >
                       Submit
                     </button>
                   </div>

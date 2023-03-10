@@ -28,9 +28,9 @@ function ModalSuccess({ children, text }) {
         <div className="d-flex flex-column modal-header-custom mb-5">
           {children}
         </div>
-        <ModalBody className="position-relative mt-4 mb-2 text-center ">
+        <ModalBody className="position-relative mt-4 mb-2 text-center text-white">
           {text}
-          <p className="mt-2">
+          <p className="mt-2 text-white">
             You Will be redirected in{" "}
             <span className="text-warning">{time}s</span>
           </p>

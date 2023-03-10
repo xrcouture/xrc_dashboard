@@ -15,6 +15,7 @@ import GoogleLogin from "react-google-login";
 
 function RegisterBrand() {
 
+  const [loading,setLoading] = React.useState(false);
   const CLIENT_ID = "502666256532-09c3r3cfdh8028t1n3lrl69hpeaq000v.apps.googleusercontent.com"
 
 
@@ -50,10 +51,11 @@ function RegisterBrand() {
               initialValues={{
                 email: "",
                 password: "",
-                confirmPassword: "",
+                confirmpassword: "",
               }}
               validationSchema={SignupSchema}
-              onSubmit={(values) => {
+              onSubmit={async(values,actions) => {
+                setLoading(true)
                 console.log(values);
                 values.password.match(
                   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
@@ -65,13 +67,13 @@ function RegisterBrand() {
                         toastId: "passerror",
                       }
                     )
-                  : axios
+                  : await axios
                       .post("http://localhost:5000/auth/signup", {...values,role:"brands"})
                       .then((res) => {
                         console.log(res);
                         if (res.status == 201) {
                           toast.success(res.data.msg, {
-                            position: toast.POSITION.TOP_RIGHT,
+                            position: toast.POSITION.TOP_CENTER,
                             toastId: "passerror",
                           });
                         } else {
@@ -86,6 +88,8 @@ function RegisterBrand() {
                           toastId: "passerror",
                         });
                       });
+                    setLoading(false)
+                    actions.resetForm()
               }}
             >
               {({ errors, touched }) => (
@@ -113,8 +117,8 @@ function RegisterBrand() {
                   />
                   {/* {errors.password && errorPass} */}
                   <div className="button-submit">
-                    <button type="submit" className="button">
-                      Sign Up
+                    <button type="submit" className="button" disabled={loading}>
+                      {!loading ? "Sign Up" : " Loading..."}
                     </button>
                   </div>
                 </Form>

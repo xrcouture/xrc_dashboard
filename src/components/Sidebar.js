@@ -6,6 +6,7 @@ import {
   FaRegChartBar,
   FaCommentAlt,
   FaRegCommentDots,
+  FaSignOutAlt
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import img_logo from "../assets/xr-white.png";
@@ -18,6 +19,7 @@ import {
   AiOutlineFolderAdd,
   AiOutlineHome,
 } from "react-icons/ai";
+import axios from "axios";
 
 const Sidebar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,6 +59,14 @@ const Sidebar = ({ children }) => {
       icon: <CgProfile />,
     },
   ];
+  const handleLogout = () => {
+    const brand = localStorage.getItem('brand')
+    console.log(brand)
+    // axios.delete(`http://localhost:5000/auth/signout/`,{data:{
+    //   brandName: brand
+    // }}).then(res=>console.log(res)).catch((e)=>console.log(e))
+    window.location.replace("/signin");
+  }
   return (
     <div className="container-sidebar position-relative">
       <div style={{ width: isOpen ? "250px" : "50px" }} className="sidebar">
@@ -73,8 +83,17 @@ const Sidebar = ({ children }) => {
                 setIsOpen(!isOpen);
               }}
             />
+           
           </div>
         </div>
+        <div className="top_section">
+          <h6 style={{ display: isOpen ? "block" : "none" }}>Logout</h6>
+          <div style={{ marginLeft: isOpen ? "55px" : "0px" }} className="bars">
+          <FaSignOutAlt  onClick={handleLogout}/>
+          </div>
+        </div>
+       
+        
         {menuItem.map((item, index) => (
           <NavLink
             to={item.path}

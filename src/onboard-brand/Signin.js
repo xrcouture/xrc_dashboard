@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from "react";
+import { useCookies } from 'react-cookie';
 import axios from "axios";
 import { Row, Col } from "reactstrap";
 import logo from "../assets/XR_R3.png";
@@ -15,6 +16,7 @@ import useFetch from "../hooks/useFetch";
 import GoogleLogin from "react-google-login";
 
 function Signin() {
+  const [loading, setLoading] = useState(false);
   const CLIENT_ID = "502666256532-09c3r3cfdh8028t1n3lrl69hpeaq000v.apps.googleusercontent.com"
   const [show, setShow] = useState("");
 
@@ -35,11 +37,8 @@ function Signin() {
       .email("Invalid email")
       .required("Please Enter Your Valid Email"),
     password: Yup.string().required("Please Enter your password"),
-    confirmPassword: Yup.string().oneOf(
-      [Yup.ref("password"), null],
-      "Passwords must match"
-    ),
   });
+  const [cookies, setCookie] = useCookies(['refreshToken','accessToken']);
 
   return (
     <div className="main-signup">
@@ -58,22 +57,41 @@ function Signin() {
               }}
               validationSchema={SigninSchema}
               onSubmit={(values) => {
+                console.log("called")
+                setLoading(true)
+
+                
+                
                 axios
-                  .post("http://localhost:5000/auth/signin", values, {withCredentials:true})
+                  .post("http://localhost:5000/auth/signin", values)
                   .then((res) => {
+                    setCookie('refreshToken', res.data.refreshToken, { path: '/' });
+                    setCookie('accessToken', res.data.accessToken, { path: '/' });
+                    localStorage.setItem('email', res.data.mail);
+                    localStorage.setItem('role', res.data.role);
+                    localStorage.setItem('brand', res.data.brand);
                     setSignup(res.data.signUpCompleted);
-                    console.log(res.data.signUpCompleted);
-                    if (signup === true) {
+                    console.log(res)
+                    if(res.data.role === "admin"){
+                      setTimeout(function () {
+                            window.location.replace("/admin/brands");
+                          }, 500);
+                    }
+
+
+                    if (res.data.signUpCompleted === true) {
                       setTimeout(function () {
                         window.location.replace("/");
-                      }, 1000);
+                      }, 500);
                     } else {
                       setTimeout(function () {
                         window.location.replace("/brand-data");
-                      }, 2000);
+                      }, 500);
                     }
                   })
                   .catch((err) => {
+                      setLoading(false)
+
                     console.log(err);
                     toast.error(`Oops, ${err.response.data.msg}`, {
                       position: toast.POSITION.TOP_RIGHT,
@@ -106,8 +124,8 @@ function Signin() {
                     </Link>
                   </p>
                   <div className="button-submit">
-                    <button type="submit" className="button">
-                      Login
+                    <button type="submit" className="button" disabled={loading}>
+                      {loading ? "Loading..." : "Sign In"}
                     </button>
                   </div>
                 </Form>

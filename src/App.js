@@ -31,6 +31,7 @@ import ChatBody from "./components/chatBody/ChatBody";
 import AdminDashboard from "./New-src/AdminDashboard/AdminDashboard";
 import AdminBrand from "./New-src/AdminDashboard/Pages/AdminPage/Dashboard";
 import ProtectedRoutes from "./ProtectedRoute";
+import Signin1 from "./onboard-brand/Signin";
 
 function App() {
   const CLIENT_ID = "502666256532-09c3r3cfdh8028t1n3lrl69hpeaq000v.apps.googleusercontent.com"
@@ -51,6 +52,7 @@ function App() {
         <Route path="/signup" element={<Register />} />
         <Route path="/admin/signup" element={<RegisterAdmin />} />
         <Route path="/signin" element={<Signin />} />
+        <Route path="/admin/signin" element={<Signin1 />} />
         <Route path="/forget-password" element={<Resetpassword />} />
         <Route path="/update-password" element={<Updatepassword />} />
         <Route path="/brand-data" element={<Data />} />

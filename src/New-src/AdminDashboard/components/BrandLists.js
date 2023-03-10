@@ -1399,13 +1399,13 @@ export default function MyComponent(props) {
             name.push(row.assetName);
           });
           console.log({
-            brand: "Zara",
+            brand: row.brandName,
             name: [row.assetName],
           });
           await axios
             .delete("http://localhost:5000/brands/delete", {
               data: {
-                brand: "Zara",
+                brand: row.brandName,
                 name: [row.assetName],
               },
             })
@@ -1536,13 +1536,13 @@ export default function MyComponent(props) {
             name.push(row.assetName);
           });
           console.log({
-            brand: "Zara",
+            brand: brand,
             name: name,
           });
           await axios
             .delete("http://localhost:5000/brands/delete", {
               data: {
-                brand: "Zara",
+                brand: brand,
                 name: name,
               },
             })
