@@ -9,8 +9,6 @@
     padding: 10px;  
 }
 .dwPlXY {
-    margin-bottom: 15px !important;
-    margin-top: 15px !important;
     padding: 10px;
 }
 .rdt_TableHeader{
@@ -24,11 +22,29 @@
 .kNxEtY{
     display: none;
 }
+.rdt_Table,.rdt_Pagination{
+    /* background: linear-gradient(180deg, #1E1D47 18.75%, rgba(0, 0, 0, 0) 100%); */
+    /* backdrop-filter: blur(16.0562px); */
+    background-color:#1E1D47 !important;
+    color: white;
+}
+.sc-eDWCr,.bzRnkJ div,.sc-bYMpWt{
+    color: white;
+}
+.sc-gikAfH svg{
+    fill: white;
+}
+.bBpdsi,.gMliOo svg {
+    color: white !important;
+}
+.bzRnkJ,.rdt_TableHeadRow{
+    background: transparent !important;
+}
 .rdt_TableBody{
     background-color: transparent !important;;
 }
 .rdt_TableRow{
-    background: rgba(248, 248, 248, 0.8);
+    background: transparent !important;
     box-shadow: 0px 5.2732px 5.2732px rgba(0, 0, 0, 0.25) !important;
     position: relative;
     align-items: baseline !important;;
@@ -40,7 +56,6 @@
 }
 .rdt_TableHead{
     margin-bottom: 20px !important;
-    background-color: green !important;
     position: relative !important;
 }
 .rdt_Pagination{
@@ -106,4 +121,41 @@
     border-radius: 1rem;
     border:1px solid #ccc;
     font-family: 'Inter Bold';
+}
+.tabs-container{
+    width: 100%;
+    background-color: #1E1D47;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+.tabs-container button{
+    background-color: #282760;
+    border: none;
+    color: white;
+    font-family: 'Inter Bold';
+    font-size: .8rem;
+    padding: 5px 10px ;
+    cursor: pointer;
+    margin: 10px;
+    border-radius: .5rem;
+}
+.active-filter{
+    background-color: #F2EFEF !important;
+    color: black !important;
+}
+.kNUuTe{
+    left: -100% !important;
+}
+.action-toggle{
+    color: white !important;
+}
+.jaZsat{
+    color: white !important;
+}
+.modal-content{
+    background-color: #282760 !important;
+}
+.modal-title{
+    color: white !important;
 }

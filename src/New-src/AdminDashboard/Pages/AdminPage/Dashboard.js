@@ -1,11 +1,14 @@
 import React from 'react'
 import './Dashboard.css'
 import {IoAddCircleOutline} from 'react-icons/io5'
-import Recent from '../Recents/Recent'
 import {IoIosNotificationsOutline} from 'react-icons/io'
+import MyComponent from '../components/AdminBrands'
+import { useParams } from 'react-router'
 
 function Dashboard() {
   const [filterText, setFilterText] = React.useState("");
+  const {brand} = useParams()
+
   return (
     <div>
         <div className='row container-dashboard'>
@@ -13,7 +16,7 @@ function Dashboard() {
                 <h1 style={{color:"white"}}>Dashboard Overview</h1>
             </div>
             <div className='col-6 row d-flex align-items-center justify-content-between'>
-                <div className='col-8 h-100 m-0 p-0'>
+                <div className='col-10 h-100 m-0 p-0'>
                 <div class="input-icons">
                 <i class="fa fa-search input-icon" >
               </i>
@@ -24,10 +27,6 @@ function Dashboard() {
                       onChange={e => setFilterText(e.target.value)}
                        />
             </div>
-                </div>
-                <div className='col-2 p-1 d-flex justify-content-center'>
-                    <div className='icons-dashboard' style={{width:"unset", color:"white"}}>
-                    Create<IoAddCircleOutline size={25}  color="white"/></div>
                 </div>
                 <div className='col-1 p-1 d-flex justify-content-center'>
                 <div className='icons-dashboard'>
@@ -138,7 +137,7 @@ function Dashboard() {
                 </div>
             </div>
         </div>
-        <Recent filterText={filterText}/>
+        <MyComponent filterText={filterText} brand={brand}/>
     </div>
   )
 }

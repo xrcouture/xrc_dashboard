@@ -24,6 +24,9 @@ import Upload1 from './Asset_components/Upload'
 import Assetedit from "./Asset_components/Assetedit";
 import Dashboard1 from "./New-src/Dashboard/Dashboard/Dashboard";
 import 'swiper/css';
+import ChatBody from "./components/chatBody/ChatBody";
+import AdminDashboard from "./New-src/AdminDashboard/AdminDashboard";
+import AdminBrand from "./New-src/AdminDashboard/Pages/AdminPage/Dashboard";
 
 function App() {
   const CLIENT_ID = "502666256532-09c3r3cfdh8028t1n3lrl69hpeaq000v.apps.googleusercontent.com"
@@ -52,7 +55,6 @@ function App() {
     {
       <Sidebar>
         <Routes>
-          
           <Route path="/" exact element={<Dashboard1 />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/collections" element={<About />} />
@@ -65,6 +67,9 @@ function App() {
           <Route path="/:brands/:assetName1/view" element={<Upload1 />} />
           <Route path="/admin/upload" element={<Upload role="admin" />} />
           <Route path="/:brands/:assetName1/edit" element={<Assetedit />} />
+          <Route path="/support" element={<ChatBody />} />
+          <Route path="/admin/brands" element={<AdminDashboard />} />
+          <Route path="/admin/:brand/assets" element={<AdminBrand />} />
         </Routes>
       </Sidebar>
     }

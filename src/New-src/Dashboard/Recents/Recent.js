@@ -3,13 +3,18 @@ import './Recent.css'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import {GrUploadOption} from 'react-icons/gr'
+import {VscOpenPreview} from 'react-icons/vsc'
+import {AiOutlineExclamationCircle} from 'react-icons/ai'
+import {MdOutlinePendingActions} from 'react-icons/md'
+import {IoCheckmarkDone} from 'react-icons/io5'
 import R1 from './R1.png'
-function Recent() {
+import MyComponent from '../../../Asset_components/basic';
+function Recent(props) {
   return (
-    <div>
+    <div style={{position:"relative"}}>
       <h1 className='text-white mt-4 ml-4'>Recents</h1>
-      <div className='row'>
-        <div className='col-8 p-4'>
+      <div className='row' style={{position:"relative",zIndex:-1}}>
+        <div className='col-8 p-4 swiper-container-all'>
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y]}
           spaceBetween={20}
@@ -17,17 +22,15 @@ function Recent() {
           navigation
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
-          onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => console.log('slide change')}
         >
           <SwiperSlide>
             <div className='card-recents'>
               <div className='image-container'>
-                <div className='action-container'>
-                  <div className='action-icon-container'>
-                  <GrUploadOption color='white' className='action-container-icon' style={{color:"white"}} />
+                <div className='action-container under-review-border'>
+                  <div className='action-icon-container '>
+                  <GrUploadOption color='white' className='action-container-icon under-review-action-icon' style={{color:"white"}} />
                   </div>
-                 <span>Working</span>
+                 <span className="under-review-text-color">Under review</span>
                 </div>
                 <div className='image-card'>
                   <img src={R1} alt='image' className='card-image' />
@@ -53,13 +56,13 @@ function Recent() {
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <div className='card-recents'>
+            <div className='card-recents completed-border'>
               <div className='image-container'>
-                <div className='action-container'>
-                  <div className='action-icon-container'>
-                  <GrUploadOption color='white' className='action-container-icon' style={{color:"white"}} />
+                <div className='action-container completed-border'>
+                  <div className='action-icon-container completed-bg'>
+                  <IoCheckmarkDone color='white' className='action-container-icon completed-action-icon' />
                   </div>
-                 <span>Working</span>
+                 <span className='completed-text-color'>Completed</span>
                 </div>
                 <div className='image-card'>
                   <img src={R1} alt='image' className='card-image' />
@@ -85,13 +88,13 @@ function Recent() {
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <div className='card-recents'>
+            <div className='card-recents action-needed-border'>
               <div className='image-container'>
-                <div className='action-container'>
+                <div className='action-container action-needed-border action-needed-bg'>
                   <div className='action-icon-container'>
-                  <GrUploadOption color='white' className='action-container-icon' style={{color:"white"}} />
+                  <GrUploadOption color='white'  className='action-container-icon pending-action-icon' style={{color:"white"}} />
                   </div>
-                 <span>Working</span>
+                 <span className='pending-text-color'>Action Needed</span>
                 </div>
                 <div className='image-card'>
                   <img src={R1} alt='image' className='card-image' />
@@ -151,10 +154,41 @@ function Recent() {
           
         </Swiper>
         </div>
-        <div className='col-4'></div>
-
+        <div className='col-4 d-flex justify-content-center align-items-center position-relative'>
+          <div className='overview-container'>
+            <h3 className='text-white'>Overview</h3>
+            <div className='under-review  av pt-4'>
+              <div className='under-review-icon '>
+              <VscOpenPreview />
+              </div>
+              <h4 className='under-review-text'>Under Review</h4> 
+              <span className='under-review-percentage'>50</span>
+            </div>
+            <div className='under-review pt-4'>
+              <div className='under-review-icon action-needed-icon'>
+              <AiOutlineExclamationCircle />
+              </div>
+              <h4 className='under-review-text action-needed-icon'>Action Needed</h4> 
+              <span className='under-review-percentage'>50</span>
+            </div>
+            <div className='under-review pt-4'>
+              <div className='under-review-icon pending-icon'>
+              <MdOutlinePendingActions />
+              </div>
+              <h4 className='under-review-text pending-icon'>Payment Pending</h4> 
+              <span className='under-review-percentage'>50</span>
+            </div>
+            <div className='under-review pt-4'>
+              <div className='under-review-icon completed-icon'>
+              <IoCheckmarkDone />
+              </div>
+              <h4 className='under-review-text completed-icon'>Completed</h4> 
+              <span className='under-review-percentage'>50</span>
+            </div>
+          </div>
+        </div>
       </div>
-
+      <MyComponent filterText = {props.filterText} />
     </div>
   )
 }

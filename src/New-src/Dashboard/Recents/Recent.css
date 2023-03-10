@@ -3,10 +3,7 @@
 height: 345.31px;
 left: 315px;
 top: 182.35px;
-
-/* Back */
-
-background: #1E1D47;
+background: #1E1D47 !important;
 border: 1px solid #A68567;
 border-radius: 18.8485px;   
 }
@@ -30,26 +27,54 @@ border-radius: 18.8485px;
     top: 7%;
     left: 7%;
     z-index: 44;
-    width: 30%;
+    /* width: 30%; */
+    padding: 0% 1%;
     height: 8%;
-    background: rgba(102, 80, 38, 0.6);
-    border: 1px solid #A68567;
     border-radius: 15.6196px;
     display: flex;
     flex-direction: row;
     align-items: center;
 }
+.under-review-bg{
+    background: rgba(102, 80, 38, 0.6);
+}
+.under-review-action-icon path, .under-review-text-color {
+    color: #FF7A00;
+    stroke: #FF7A00;
+}
+.completed-action-icon path, .completed-text-color{
+    color: #6BEBA4;
+    stroke: #6BEBA4;
+}
+.pending-action-icon path, .pending-text-color{
+    color: red;
+    stroke: red;
+}
+.under-review-border{
+    border: 1px solid #A68567;
+    background: rgba(102, 80, 38, 0.6);
+}
+.completed-border{
+    border: 1px solid green;
+    background: rgba(38, 102, 99, 0.6);
+}
+.action-needed-border{
+    border: 1px solid red;
+}
+.action-needed-bg{
+    background: rgba(102, 38, 38, 0.6);
+}
+.completed-bg{
+    background: rgba(38, 102, 99, 0.6);
+}
+
 .action-container span{
     font-family: 'Clash Display';
     font-style: normal;
     font-weight: 500;
     font-size: 11.71011px;
     line-height: 140%;
-    color: #FF7A00;
     margin-left: 3px;
-}
-.action-container-icon path{
-    stroke: #FF7A00;
 }
 .action-icon-container{
     display: flex;
@@ -125,4 +150,121 @@ border-radius: 18.8485px;
 .button-card{
     display: flex;
     justify-content: center;
+}
+.overview-container{
+    padding: 5%;
+    width: 70%;
+    height: 90%;
+    background: #1E1D47;
+    box-shadow: -16px 113px 46px rgba(9, 8, 43, 0.01), -9px 64px 39px rgba(9, 8, 43, 0.05), -4px 28px 29px rgba(9, 8, 43, 0.09), -1px 7px 16px rgba(9, 8, 43, 0.1), 0px 0px 0px rgba(9, 8, 43, 0.1);
+    border-radius: 3rem;
+}
+.overview-container::before{
+    position: absolute;
+    top: 15%;
+    left:16.5%;
+    content: '';
+    height: 70%;
+    width: .5%;
+    background: linear-gradient(0deg, rgba(71, 118, 240, 0.06) 0%, #0057FF 50%, rgba(74, 71, 240, 0.06) 99.48%);
+}
+.overview-container::after{
+    position: absolute;
+    top: 15%;
+    right:16.5%;
+    content: '';
+    height: 70%;
+    width: .5%;
+    background: linear-gradient(0deg, rgba(71, 118, 240, 0.06) 0%, #0057FF 50%, rgba(74, 71, 240, 0.06) 99.48%);
+}
+.under-review{
+    color: white;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+.action-needed-icon{
+    color: red !important;
+}
+.pending-icon{
+    color: orange !important;
+}
+.completed-icon{
+    color: green !important;
+}
+.under-review-icon{
+    width: 25px;
+    height: 25px;
+    background-color:white !important;
+    border-radius: 50%;
+    color: violet;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+.under-review-text{
+    font-family: 'Clash Display';
+    width: 80%;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 116%;
+    display: flex;
+    color: violet;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin-bottom: 0;
+    }
+.under-review-percentage{
+    font-family: 'Clash Display';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 116%;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+.under-review::after{
+    content: "";
+    position: absolute;
+    bottom: -10%;
+    width: 30%;
+    height: 1px;
+    margin-top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(270deg, rgba(71, 118, 240, 0.06) 0%, #0057FF 50%, rgba(74, 71, 240, 0.06) 99.48%);
+}
+.data-table{
+    background: linear-gradient(152.97deg, #1E1D47 18.75%, rgba(0, 0, 0, 0) 100%);
+    backdrop-filter: blur(16.0562px);
+}
+.jaZsat option{
+    color: white;
+}
+.feGxUP{
+    color: white;
+}
+.BafWS{
+    background-color: transparent !important;
+}
+.Fgnmg,.cvQOBp,.bhQwst{
+    background-color: transparent !important;
+    display: hidden !important;
+    color: transparent !important;
+}
+.feGxUP{
+color: white;
+}
+.rdt_TableCol_Sortable span{
+    color: white !important;
+}
+.swiper-container-all{
+    padding: 30px 50px !important;
 }
