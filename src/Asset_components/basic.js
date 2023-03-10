@@ -1,29 +1,22 @@
-// import DataTable from 'react-data-table-component';
+import React,{useEffect, useState} from 'react'
 import DataTable from './DataTable'
-import image from './asset-1.png'
-import React,{ useEffect,useState,CSSProperties } from 'react';
-import FilterComponent from 'react-data-table-component-with-filter';
-// import DataTable from 'react-data-table-component';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import { Audio } from 'react-loader-spinner'
 import differenceBy from 'lodash/differenceBy'
 import { Button } from 'react-bootstrap';
-import ListPage from '../components/common/ListPage';
-import {IoCheckmarkDoneCircle} from 'react-icons/io5'
+import {SlOptionsVertical} from 'react-icons/sl'
+import {RiDeleteBin6Line} from 'react-icons/ri'
+import {GiWallet} from 'react-icons/gi'
+import {BiEdit} from 'react-icons/bi'
 import {FaTrashAlt} from 'react-icons/fa'
 import {IoBagCheckOutline} from 'react-icons/io5'
-import {ImCross} from 'react-icons/im'
-import {CiViewBoard} from 'react-icons/ci'
 import Swal from 'sweetalert2'
 import Modal from 'react-bootstrap/Modal';
 import ProgressBar1 from 'react-animated-progress-bar';
 import styled, { keyframes } from 'styled-components'
-import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import { faker } from '@faker-js/faker';
 import axios from 'axios';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-// A super simple expandable component.
+import { UncontrolledDropdown,DropdownItem,DropdownMenu,DropdownToggle } from 'reactstrap';
 
 const rotate360 = keyframes`
   from {
@@ -53,8 +46,9 @@ const CustomLoader = () => (
     <Spinner />
   </div>
 )
-export default function MyComponent() {
+export default function MyComponent(props) {
 
+  console.log()
 
   const caseInsensitiveSort = (rowA, rowB) => {
     const a = rowA.status
@@ -145,8 +139,8 @@ export default function MyComponent() {
           selector: 'thumbnail',
           cell:(row)=>(
             <>
-            {row.thumbnail && (row.thumbnail != "") ? <img src={row.thumbnail} style={{width:"100px",height:"100px"}}/> : 
-            <div style={{height:"100px", width:"100px", backgroundColor:"black",alignSelf:"center", justifySelf:"center",fontSize:"80px",fontWeight:"bolder",color:"gray", textAlign:"center"}}>{row.assetName.split(" ").slice(0,1).map((n)=>n[0]).join("").toUpperCase()}</div>
+            {row.thumbnail && (row.thumbnail != "") ? <img src={row.thumbnail} style={{width:"30px",height:"30px"}}/> : 
+            <div style={{height:"30px", width:"30px", backgroundColor:"black",alignSelf:"center", justifySelf:"center",fontSize:"20px",fontWeight:"bolder",color:"gray", textAlign:"center"}}>{row.assetName.split(" ").slice(0,1).map((n)=>n[0]).join("").toUpperCase()}</div>
             }
               
             </>
@@ -210,11 +204,10 @@ export default function MyComponent() {
         name: 'Status',
         selector: 'status',
         sortable:true,
-        cell:(row)=>(
+        cell:(row)=>( 
           <>
-          {(row.status == "Under Review") ?
-            <p className='text-primary'>Under Review</p> : (row.status == "Pending payment") ? <p className='text-danger'>Pending Payment</p> : <p className='text-success'>Paid</p>
-          }
+         <p style={{color:`${row.status === 'Under Review' ? 'violet' : row.status === 'Draft' ? "gray" : row.status === "Action Required" ? 'red' : row.status === "Pending payment" ? 'yellow' : row.status === "In Progress" ? 'blue' : 'green'}`}}>{row.status}</p>
+         {/* <p style={{color: `${row.status ==== "Under Review" ? "violet" : row.status ==== "Draft" ? "gray" : "green"}`}}>{row.status}</p> */}
           </>
         )
       },
@@ -257,9 +250,39 @@ export default function MyComponent() {
           selector: row => (
             row.status < 100 ?
             <div style={{padding:"5px"}}>
-              <i class="far fa-comment-alt" style={{fontSize:"20px"}} aria-hidden="true"></i>
-            </div> :  <i class="far fa-comment-alt" style={{fontSize:"20px"}} aria-hidden="true"></i>
+              <i class="far fa-comment-alt" style={{fontSize:"20px",color:"white"}} aria-hidden="true"></i>
+            </div> :  <i class="far fa-comment-alt" style={{fontSize:"20px",color:"white"}} aria-hidden="true"></i>
         ),
+      },
+      {
+          name: 'Options',
+          // selector: "",
+          cell:(row) =>(
+             <UncontrolledDropdown direction="end">
+              <DropdownToggle
+                color="transparent"
+                className="action-toggle"
+                direction="end"
+              >
+              <SlOptionsVertical className='action-container-icon ' />
+              </DropdownToggle>
+            <DropdownMenu dark>
+              <DropdownItem onClick={()=>(alert(`Are you ready to pay: ${row.budget}`))}>
+              <GiWallet /> Pay Now 
+              </DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem> 
+               <BiEdit /> Edit
+              </DropdownItem>
+
+              <DropdownItem divider />
+              <DropdownItem onClick={()=>handleDelete(row)}> 
+               <RiDeleteBin6Line /> Delete
+              </DropdownItem>
+            
+            </DropdownMenu>
+          </UncontrolledDropdown>
+          )
       },
   ];
   const d = [{
@@ -1065,14 +1088,11 @@ const l = [
   //   "payment": true,
   //   "date": "19/07/2023"
   // }
-]
-
-
-  
+] 
 	const [pending, setPending] = useState(true);
 	const [selectedRows, setSelectedRows] = React.useState([]);
 	const [toggleCleared, setToggleCleared] = React.useState(false);
-	const [data, setData] = React.useState(d);
+	const [data, setData] = React.useState([]);
   const [viewModal, setViewModal] = useState(false)
   const [image, setimage] = useState("")
   const [name, setname] = useState("")
@@ -1097,25 +1117,27 @@ const l = [
   }
   const [assetList,setAssetList] = useState([])
 	const filteredItems = data.filter(
-		item => item.assetName && item.assetName.toLowerCase().includes(filterText.toLowerCase()),
+		item => item.assetName && item.assetName.toLowerCase().includes(props.filterText.toLowerCase()),
 	);
 
   const fetchAsset = async() =>{
-    await axios.post('http://localhost:5000/brands/assets',{
+    await axios.post('https://xrcdashboard.onrender.com/brands/assets',{
       brand:"Zara"
     }).then(res =>{
       setData(res.data.assets)
   })
   }
-  console.log(data)
 
+  
 	useEffect(() => {
     setPending(true)
+    console.log(props.filterText)
     fetchAsset()
-    setAssetList(filteredItems)
+    console.log(data)
+    console.log(filteredItems)
 		const timeout = setTimeout(() => {
       setPending(false);
-		}, 2000);
+		}, 1000);
     data.map(r=>{
       if(r.status == "Pending Payment"){
         r['selected'] = true
@@ -1123,9 +1145,29 @@ const l = [
     })
 		return () => clearTimeout(timeout);
 	}, []);
+
+  useEffect(()=>{
+    console.log(data, filteredItems)
+    setAssetList(filteredItems)
+  },[data])
+
+  const [filterState,setFilterState] = useState("all")
+
+  const filteredItemsByState = data.filter(function(item) {
+    return item.status == filterState });
+
+  useEffect(() => {
+    console.log("changed")
+    if(filterState != "all"){
+      setAssetList(filteredItemsByState)
+    }else{
+      setAssetList(data)
+    }
+  },[filterState])
+
   useEffect(()=>{
     setAssetList(filteredItems)
-  },[filterText])
+  },[props.filterText])
 
 
   const handleRowSelected = React.useCallback(state => {
@@ -1151,9 +1193,30 @@ const l = [
           cancelButtonText: 'No, cancel!',
           reverseButtons: true,
         })
-        .then((result) => {
+        .then(async(result) => {
           if (result.isConfirmed) {
-            console.log(row)
+            var name = []
+            selectedRows.map(row => {
+              name.push(row.assetName)
+            })
+            console.log({
+              brand:"Zara",
+              name:[row.assetName]
+            })
+            await axios.delete("http://localhost:5000/brands/delete",{data:{
+              brand:"Zara",
+              name:[row.assetName]
+            }}).then(res => {
+              setPending(true)
+              fetchAsset()
+              setAssetList(filteredItems)
+              const timeout = setTimeout(() => {
+                setPending(false);
+              }, 1000);
+              swalWithBootstrapButtons.fire('Deleted!', 'Your file has been deleted.', 'success')
+              return () => clearTimeout(timeout);
+            }).catch(()=>alert('Something Went Wrong'))
+
             setData(differenceBy(data, [row], 'id'));
             swalWithBootstrapButtons.fire('Deleted!', 'Your file has been deleted.', 'success')
           } else if (
@@ -1215,38 +1278,7 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => (
     	</>
     );
   const contextActions = React.useMemo(() => {
-    		const handleDelete = () => {
-          const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-              confirmButton: 'btn btn-success',
-              cancelButton: 'btn btn-danger',
-            },
-            buttonsStyling: true,
-          })
-
-          swalWithBootstrapButtons
-        .fire({
-          title: 'Are you sure?',
-          text: `Are you sure you want to delete:\r ${selectedRows.map(r => r.name)}?`,
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Yes',
-          cancelButtonText: 'No, cancel!',
-          reverseButtons: true,
-        })
-        .then((result) => {
-          if (result.isConfirmed) {
-            setToggleCleared(!toggleCleared);
-    				setData(differenceBy(data, selectedRows, '_id'));
-            swalWithBootstrapButtons.fire('Deleted!', 'Your file has been deleted.', 'success')
-          } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-          ) {
-            this.successalt('error', 'Cancelled')
-          }
-        })
-    		};
+    		
         var price = 0;
         selectedRows.map(r=>{
           if(Number(r.budget)){
@@ -1263,58 +1295,77 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => (
           </>
     		);
     	}, [data, selectedRows, toggleCleared]);
-
-      // const subHeaderComponentMemo = React.useMemo(() => {
-      //   const handleClear = () => {
-      //     if (filterText) {
-      //       setResetPaginationToggle(!resetPaginationToggle);
-      //       setFilterText('');
-      //     }
-      //   };
-    
-      //   return (
-      //     <FilterComponent onFilter={e => setFilterText(e.target.value)} onClear={handleClear} filterText={filterText} />
-      //   );
-      // }, [filterText, resetPaginationToggle]);
       const {brand} = useParams()
-      console.log(brand)
+      const handleDeleteAll = () => {
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger',
+          },
+          buttonsStyling: true,
+        })
 
+        swalWithBootstrapButtons
+      .fire({
+        title: 'Are you sure?',
+        text: `Are you sure you want to delete:\r ${selectedRows.map(r => r.name)}?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true,
+      })
+      .then(async(result) => {
+        if (result.isConfirmed) {
+          setToggleCleared(!toggleCleared);
+          var name = []
+          selectedRows.map(row => {
+            name.push(row.assetName)
+          })
+          console.log({
+            brand:"Zara",
+            name:name
+          })
+          await axios.delete("http://localhost:5000/brands/delete",{data:{
+            brand:"Zara",
+            name:name
+          }}).then(res => {
+            setPending(true)
+            fetchAsset()
+            setAssetList(filteredItems)
+            const timeout = setTimeout(() => {
+              setPending(false);
+            }, 1000);
+            swalWithBootstrapButtons.fire('Deleted!', 'Your file has been deleted.', 'success')
+            return () => clearTimeout(timeout);
+          }).catch(()=>alert('Something Went Wrong'))
+
+          
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          this.successalt('error', 'Cancelled')
+        }
+      })
+      };
     return (
       <div className='p-2 mb-4'>
-      <Breadcrumb>
-            <BreadcrumbItem>
-            <a href="#">
-                Assets
-            </a>
-            </BreadcrumbItem>
-            <BreadcrumbItem active> 
-            Manage Assets
-            </BreadcrumbItem>
-        </Breadcrumb>
-        <h1>Assets</h1>
-        <div class="input-icons">
-                <i class="fa fa-search input-icon">
-              </i>
-                <input class="input-field manage-asset-input" 
-                      type="text"
-                      placeholder="Search Assets"
-                      value={filterText}
-                      onChange={e => setFilterText(e.target.value)}
-                       />
-                <i class="fa fa-times input-icon-after" onClick={()=>{
-                  setFilterText("")
-                  setData(filteredItems)
-                }}>
-              </i>
-            </div>
-        <button className='btn-create'>
-            Create New 3d Asset +
-        </button>
+      <h1 style={{color:"white"}}>All Assets</h1>
+      <div className='tabs-container'>
+      <div className='tabs-menu'>
+        <button className={filterState=="all" ?"active-filter":""} onClick={()=>setFilterState("all")} >All</button>
+        <button className={filterState=="Under Review" ?"active-filter":""} onClick={()=>setFilterState("Under Review")}>Under Review</button>
+        <button className={filterState=="Action Required" ?"active-filter":""} onClick={()=>setFilterState("Action Required")}>Action Required</button>
+        <button className={filterState=="pending" ?"active-filter":""} onClick={()=>setFilterState("pending")}>Payment Pendiing</button>
+        <button className={filterState=="Paid" ?"active-filter":""} onClick={()=>setFilterState("Paid")}>Completed</button>
+      </div>
+      </div>
     <div className='tables mt-4' style={{position:"relative"}}>
         <DataTable 
         columns={columns} 
         className='data-table'
-        data={filteredItems} 
+        data={assetList} 
         selectableRows
         contextActions={contextActions}
         onSelectedRowsChange={handleRowSelected}
@@ -1322,17 +1373,20 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => (
         paginationPerPage={5}
         paginationRowsPerPageOptions={[5,10, 25, 50, 100]}
         paginationResetDefaultPage={resetPaginationToggle}
-			  clearSelectedRows={toggleCleared}
+			  // clearSelectedRows={toggleCleared}
         pagination
-        selectableRowDisabled={rowDisabledCriteria}
-        persistTableHead
+        // selectableRowDisabled={rowDisabledCriteria}
+        // persistTableHead
         progressComponent={
           <CustomLoader />
         }
-        conditionalRowStyles={conditionalRowStyles}
+        // conditionalRowStyles={conditionalRowStyles}
          />
     </div>
-
+    {selectedRows.length > 0 && <button className='btn btn-primary m-4' style={{float:"right",marginBottom:"150px", zIndex:"1000000000"}} onClick={e=>alert("Pay")}> Pay
+    </button>}
+    {selectedRows.length > 0 && <button className='btn btn-danger m-4' style={{float:"right",marginBottom:"150px", zIndex:"1000000000"}} onClick={e=>handleDeleteAll()}> Delete
+    </button>}
     <Modal
         size="lg"
         show={viewModal}

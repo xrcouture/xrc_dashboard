@@ -70,6 +70,7 @@
     "styled-components": "^5.3.3",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.4.17",
+    "swiper": "^9.1.0",
     "toastr": "^2.1.4",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.4",

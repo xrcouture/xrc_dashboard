@@ -12,13 +12,13 @@ function Notification() {
   <div class = "notBtn" href = "#">
     <div class = "number">2</div>
     <i class="fas fa-bell"></i>
-      <div class = "box">
+      <div class = "notification-box">
         <div class = "display">
           <div class = "nothing"> 
             <i class="fas fa-child stick"></i> 
             <div class = "cent">Looks Like your all caught up!</div>
           </div>
-          <div class = "cont">
+          <div class = "cont-Notification">
              <div class = "sec new">
                <a href = "https://codepen.io/Golez/">
                <div class = "profCont">
