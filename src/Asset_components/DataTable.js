@@ -1026,12 +1026,12 @@ function DataTableBase(props){
 		console.log("elo")
 		ale("Delete",row)
 	  }
-	  const fetchAsset = async() =>{
-		await axios.post('http://localhost:5000/brands/assets',{
-		  brand:"Zara"
-		}).then(res =>{
-		setAssetList(res.data.assets)})
-	  }
+	//   const fetchAsset = async() =>{
+	// 	await axios.post('http://localhost:5000/brands/assets',{
+	// 	  brand:"Zara"
+	// 	}).then(res =>{
+	// 	setAssetList(res.data.assets)})
+	//   }
 	const subHeaderComponentMemo = React.useMemo(() => {
 		const handleClear = () => {
 			if (filterText) {
@@ -1049,10 +1049,8 @@ function DataTableBase(props){
 		<DataTable
 			title="Asset Lists"
             className='data-table'
-            // data={filteredItems}
 			pagination
 			paginationResetDefaultPage={resetPaginationToggle}
-			// subHeaderComponent={subHeaderComponentMemo}
 			selectableRows
 			persistTableHead
             {...props}

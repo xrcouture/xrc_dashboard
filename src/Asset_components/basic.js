@@ -1102,7 +1102,7 @@ const l = [
   const [status, setstatus] = useState(0)
   const [filterText, setFilterText] = React.useState('');
 	const [resetPaginationToggle, setResetPaginationToggle] = React.useState(false);
-
+  const {brand} = useParams()
 
   const handleView =(row) => {
     console.log(row)
@@ -1120,9 +1120,10 @@ const l = [
 		item => item.assetName && item.assetName.toLowerCase().includes(props.filterText.toLowerCase()),
 	);
 
+ 
   const fetchAsset = async() =>{
     await axios.post('https://xrcdashboard.onrender.com/brands/assets',{
-      brand:"Zara"
+      brand:brand
     }).then(res =>{
       setData(res.data.assets)
   })
@@ -1200,11 +1201,11 @@ const l = [
               name.push(row.assetName)
             })
             console.log({
-              brand:"Zara",
+              brand:brand,
               name:[row.assetName]
             })
             await axios.delete("http://localhost:5000/brands/delete",{data:{
-              brand:"Zara",
+              brand:brand,
               name:[row.assetName]
             }}).then(res => {
               setPending(true)
@@ -1295,7 +1296,7 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => (
           </>
     		);
     	}, [data, selectedRows, toggleCleared]);
-      const {brand} = useParams()
+
       const handleDeleteAll = () => {
         const swalWithBootstrapButtons = Swal.mixin({
           customClass: {
@@ -1323,11 +1324,11 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => (
             name.push(row.assetName)
           })
           console.log({
-            brand:"Zara",
+            brand:brand,
             name:name
           })
           await axios.delete("http://localhost:5000/brands/delete",{data:{
-            brand:"Zara",
+            brand:brand,
             name:name
           }}).then(res => {
             setPending(true)

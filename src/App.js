@@ -27,6 +27,7 @@ import 'swiper/css';
 import ChatBody from "./components/chatBody/ChatBody";
 import AdminDashboard from "./New-src/AdminDashboard/AdminDashboard";
 import AdminBrand from "./New-src/AdminDashboard/Pages/AdminPage/Dashboard";
+import Signin1 from "./onboard-brand/Signin";
 
 function App() {
   const CLIENT_ID = "502666256532-09c3r3cfdh8028t1n3lrl69hpeaq000v.apps.googleusercontent.com"
@@ -47,6 +48,7 @@ function App() {
         <Route path="/signup" element={<Register />} />
         <Route path="/admin/signup" element={<RegisterAdmin />} />
         <Route path="/signin" element={<Signin />} />
+        <Route path="/admin/signin" element={<Signin1 />} />
         <Route path="/forget-password" element={<Resetpassword />} />
         <Route path="/update-password" element={<Updatepassword />} />
         <Route path="/brand-data" element={<Data />} />
@@ -66,7 +68,7 @@ function App() {
           <Route path="/upload" element={<Upload />} />
           <Route path="/:brands/:assetName1/view" element={<Upload1 />} />
           <Route path="/admin/upload" element={<Upload role="admin" />} />
-          <Route path="/:brands/:assetName1/edit" element={<Assetedit />} />
+          {/* <Route path="/:brands/:assetName1/edit" element={<Assetedit />} /> */}
           <Route path="/support" element={<ChatBody />} />
           <Route path="/admin/brands" element={<AdminDashboard />} />
           <Route path="/admin/:brand/assets" element={<AdminBrand />} />

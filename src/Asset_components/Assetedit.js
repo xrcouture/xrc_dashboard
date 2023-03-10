@@ -16,26 +16,26 @@ function Assetedit() {
     const [progress, setProgress] = useState()
     const [status, setStatus] = useState()
     
-    useEffect(()=>{
-      fetchAsset()
-    },[])
+    // useEffect(()=>{
+    //   fetchAsset()
+    // },[])
   
-    const fetchAsset = async() =>{
-      await axios.post('http://localhost:5000/brands/asset',{
-        brand:"Zara",
-        name:assetName1
-      }).then(res =>{
-        setAssetName(res.data.asset[0].assetName)
-        setThumbnail(res.data.asset[0].thumbnail)
-        setPlatform(res.data.asset[0].platform)
-        setBrandAssetFiles(res.data.asset[0].brandAssetFiles)
-        setProgress(res.data.asset[0].progress)
-        setStatus(res.data.asset[0].status)
-        setDataAsset(res.data.asset[0])
-        console.log(res.data.asset[0])
-        setLoading(false)
-    })
-    }
+    // const fetchAsset = async() =>{
+    //   await axios.post('http://localhost:5000/brands/asset',{
+    //     brand:"Zara",
+    //     name:assetName1
+    //   }).then(res =>{
+    //     setAssetName(res.data.asset[0].assetName)
+    //     setThumbnail(res.data.asset[0].thumbnail)
+    //     setPlatform(res.data.asset[0].platform)
+    //     setBrandAssetFiles(res.data.asset[0].brandAssetFiles)
+    //     setProgress(res.data.asset[0].progress)
+    //     setStatus(res.data.asset[0].status)
+    //     setDataAsset(res.data.asset[0])
+    //     console.log(res.data.asset[0])
+    //     setLoading(false)
+    // })
+    // }
     const previewFile = (e) => {
         var preview = document.querySelector("#thumbnail");
         var file = document.querySelector("input[type=file]").files[0];

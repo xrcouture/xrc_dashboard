@@ -44,6 +44,7 @@
     "react-animated-progress-bar": "^1.1.2",
     "react-app-polyfill": "^3.0.0",
     "react-bootstrap": "^2.7.2",
+    "react-cookie": "^4.1.1",
     "react-data-table-component": "^7.5.3",
     "react-data-table-component-with-filter": "^7.5.3",
     "react-dom": "^18.2.0",

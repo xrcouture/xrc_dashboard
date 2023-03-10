@@ -7,36 +7,47 @@ import "./verify.css";
 import { MdVerified, MdError } from "react-icons/md";
 
 function VerifyEmail() {
+  // console.log("called")
   const [searchParams] = useSearchParams();
   const [status, setStatus] = useState();
   const [load, setLoad] = useState(true);
   const [msg, setMsg] = useState("");
+  const [called, setCalled] = useState(false)
+
+  const verifyEmail = () =>{
+    if (!called) {
+      setCalled(true)
+      let search = window.location.search;
+      let params = new URLSearchParams(search);
+      let token = params.get("token");
+      let email = params.get("email");
+      console.log(token, email);
+      axios
+        .post("http://localhost:5000/auth/verify-email", {
+          email: email,
+          verificationToken: token,
+        })
+        .then((res) => {
+          setLoad(false);
+          setStatus(res.status);
+          setMsg(res.data.msg);
+          console.log(res.data.msg)
+        })
+        .catch((err) => {
+          setMsg(err.response.data.msg);
+          setStatus(err.response.status);
+          setLoad(false);
+        });
+    }
+  }
+
 
   useEffect(() => {
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
-    let token = params.get("token");
-    let email = params.get("email");
-    console.log(token, email);
-    axios
-      .post("http://localhost:5000/auth/verify-email", {
-        email: email,
-        verificationToken: token,
-      })
-      .then((res) => {
-        setLoad(false);
-        setStatus(res.status);
-        setMsg(res.data.msg);
-        console.log(res.data);
-        // console.log(res.res.status)
-      })
-      .catch((err) => {
-        setMsg(err.response.data.msg);
-        setStatus(err.response.status);
-        setLoad(false);
-      });
-    console.log(status);
-  });
+    
+    verifyEmail()
+    
+  },[]);
+
   return (
     <>
       {load ? (

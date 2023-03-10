@@ -15,7 +15,7 @@ function Upload() {
 
   const fetchAsset = async() =>{
     await axios.post('http://localhost:5000/brands/asset',{
-      brand:"Zara",
+      brand:brands,
       name:assetName1
     }).then(res =>{
       setDataAsset(res.data.asset[0])

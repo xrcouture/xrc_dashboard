@@ -44,28 +44,38 @@ function Signin() {
               }}
               validationSchema={SigninSchema}
               onSubmit={(values) => {
+                // axios
+                // .post("http://localhost:5000/auth/verify-email", {
+                //   email: "nishanthr.2k@gmail.com",
+                //   verificationToken: "ahjhfiljauhifpwekfbnqifhu",
+                // }).then(res=>console.log(res))
+                console.log(values);
                 axios
-                  .post("http://localhost:5000/auth/signin", values, {withCredentials:true})
-                  .then((res) => {
-                    setSignup(res.data.signUpCompleted);
-                    console.log(res.data.signUpCompleted);
-                    if (signup === true) {
-                      setTimeout(function () {
-                        window.location.replace("/");
-                      }, 1000);
-                    } else {
-                      setTimeout(function () {
-                        window.location.replace("/brand-data");
-                      }, 2000);
-                    }
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                    toast.error(`Oops, ${err.response.data.msg}`, {
-                      position: toast.POSITION.TOP_RIGHT,
-                      toastId: "passerror",
-                    });
-                  });
+                .get("https://xrcdashboard.onrender.com/admin/getAssets").then(res=>console.log(res))
+              //   await axios
+              //     .post("https://xrcdashboard.onrender.com/auth/signin", values,{ headers: {
+              //       'Access-Control-Allow-Origin': '*'
+              //     },withCredentials:true})
+              //     .then((res) => {
+              //       setSignup(res.data.signUpCompleted);
+              //       console.log(res.data.signUpCompleted);
+              //       if (signup === true) {
+              //         setTimeout(function () {
+              //           window.location.replace("/");
+              //         }, 1000);
+              //       } else {
+              //         setTimeout(function () {
+              //           window.location.replace("/brand-data");
+              //         }, 2000);
+              //       }
+              //     })
+              //     .catch((err) => {
+              //       console.log(err);
+              //       toast.error(`Oops, ${err}`, {
+              //         position: toast.POSITION.TOP_RIGHT,
+              //         toastId: "passerror",
+              //       });
+              //     });
               }}
             >
               {({ errors, touched }) => (
