@@ -46,10 +46,10 @@ function Data() {
                 console.log("called")
                 console.log({...values,email:localStorage.getItem('email')})
                 axios
-                  .post("http://localhost:5000/auth/form", {...values,email:localStorage.getItem('email')})
+                  .post("https://xrcdashboard.onrender.com/auth/form", {...values,email:localStorage.getItem('email')})
                   .then((res) => {
                     console.log(res);
-                    window.location.replace('/')
+                    window.location.replace(`/brands/${values.brandName}`)
                   });
                 console.log(values);
                 localStorage.setItem("brand", values.brandName);

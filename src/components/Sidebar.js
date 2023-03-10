@@ -62,7 +62,7 @@ const Sidebar = ({ children }) => {
   const handleLogout = () => {
     const brand = localStorage.getItem('brand')
     console.log(brand)
-    // axios.delete(`http://localhost:5000/auth/signout/`,{data:{
+    // axios.delete(`https://xrcdashboard.onrender.com/auth/signout/`,{data:{
     //   brandName: brand
     // }}).then(res=>console.log(res)).catch((e)=>console.log(e))
     window.location.replace("/signin");

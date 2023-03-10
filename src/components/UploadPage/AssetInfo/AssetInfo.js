@@ -37,7 +37,7 @@ const AssetInfo = () => {
   // FETCHING PREVS ASSETS
   useEffect(() => {
     axios
-      .post("http://localhost:5000/brands/assetNames", {
+      .post("https://xrcdashboard.onrender.com/brands/assetNames", {
         brand: brand
       }, {
         headers: {

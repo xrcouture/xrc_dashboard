@@ -1027,7 +1027,7 @@ function DataTableBase(props){
 		ale("Delete",row)
 	  }
 	//   const fetchAsset = async() =>{
-	// 	await axios.post('http://localhost:5000/brands/assets',{
+	// 	await axios.post('https://xrcdashboard.onrender.com/brands/assets',{
 	// 	  brand:"Zara"
 	// 	}).then(res =>{
 	// 	setAssetList(res.data.assets)})
@@ -1047,7 +1047,7 @@ function DataTableBase(props){
 
 	return (
 		<DataTable
-			title="Asset Lists"
+			// title="Asset Lists"
             className='data-table'
 			pagination
 			paginationResetDefaultPage={resetPaginationToggle}

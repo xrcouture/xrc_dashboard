@@ -74,6 +74,7 @@ function App() {
             <Route path="/admin/brands" element={<AdminDashboard />} />
             <Route path="/admin/:brand/assets" element={<AdminBrand />} />
             <Route path="/brands/:brands/:assetName1" element={<AssetView />} />
+            <Route path="/:brands/:assetName1" element={<AssetView />} />
             <Route path="/brands/:brandName/:assetName/update" element={<Update />} />
           </Route>
 

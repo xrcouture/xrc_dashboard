@@ -1203,7 +1203,7 @@ const l = [
               brand:brand,
               name:[row.assetName]
             })
-            await axios.delete("http://localhost:5000/brands/delete",{data:{
+            await axios.delete("https://xrcdashboard.onrender.com/brands/delete",{data:{
               brand:brand,
               name:[row.assetName]
             }}).then(res => {
@@ -1326,7 +1326,7 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => (
             brand:brand,
             name:name
           })
-          await axios.delete("http://localhost:5000/brands/delete",{data:{
+          await axios.delete("https://xrcdashboard.onrender.com/brands/delete",{data:{
             brand:brand,
             name:name
           }}).then(res => {

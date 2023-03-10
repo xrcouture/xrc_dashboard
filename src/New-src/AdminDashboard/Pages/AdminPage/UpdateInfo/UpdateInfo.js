@@ -21,7 +21,7 @@ const UpdateInfo = ({data}) => {
         //   return errors;
         // }}
         onSubmit={(values, { setSubmitting }) => {
-          axios.post("http://localhost:5000/admin/update", {...values,name:data.assetName,brand:data.brandName}).then(res=>console.log(res)).catch(e => console.log(e))
+          axios.post("https://xrcdashboard.onrender.com/admin/update", {...values,name:data.assetName,brand:data.brandName}).then(res=>console.log(res)).catch(e => console.log(e))
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
             setSubmitting(false);

@@ -68,7 +68,7 @@ function RegisterBrand() {
                       }
                     )
                   : await axios
-                      .post("http://localhost:5000/auth/signup", {...values,role:"brands"})
+                      .post("https://xrcdashboard.onrender.com/auth/signup", {...values,role:"brands"})
                       .then((res) => {
                         console.log(res);
                         if (res.status == 201) {

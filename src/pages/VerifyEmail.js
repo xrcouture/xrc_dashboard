@@ -23,7 +23,7 @@ function VerifyEmail() {
       let email = params.get("email");
       console.log(token, email);
       axios
-        .post("http://localhost:5000/auth/verify-email", {
+        .post("https://xrcdashboard.onrender.com/auth/verify-email", {
           email: email,
           verificationToken: token,
         })

@@ -188,7 +188,7 @@ const Upload = () => {
     )
 
     axios
-      .post("http://localhost:5000/brands/create", formData
+      .post("https://xrcdashboard.onrender.com/brands/create", formData
         , {
           headers: {
             'Access-Control-Allow-Origin': '*',
@@ -301,7 +301,7 @@ const Upload = () => {
     )
 
     axios
-      .post("http://localhost:5000/brands/saveasdraft", formData
+      .post("https://xrcdashboard.onrender.com/brands/saveasdraft", formData
         , {
           headers: {
             'Access-Control-Allow-Origin': '*',

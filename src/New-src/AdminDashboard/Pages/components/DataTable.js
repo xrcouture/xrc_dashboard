@@ -83,7 +83,7 @@ function DataTableBase(props){
 
 	return (
 		<DataTable
-			title="Asset Lists"
+			// title="Asset Lists"
             className='data-table'
 			pagination
 			paginationResetDefaultPage={resetPaginationToggle}

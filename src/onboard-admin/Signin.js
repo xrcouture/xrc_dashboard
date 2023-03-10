@@ -45,7 +45,7 @@ function Signin() {
               validationSchema={SigninSchema}
               onSubmit={(values) => {
                 // axios
-                // .post("http://localhost:5000/auth/verify-email", {
+                // .post("https://xrcdashboard.onrender.com/auth/verify-email", {
                 //   email: "nishanthr.2k@gmail.com",
                 //   verificationToken: "ahjhfiljauhifpwekfbnqifhu",
                 // }).then(res=>console.log(res))
