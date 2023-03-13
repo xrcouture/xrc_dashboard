@@ -1,13 +1,39 @@
-import React, { useState } from "react";
-import FileUpload from "../components/UploadPage/FilesUpload/FileUpload";
-import PlatformSelect from "../components/UploadPage/PlatformSelection/PlatformSelect";
-import { Context } from "../Context";
+import React, { useState, useEffect } from "react"
+import { Context } from "../Context"
 
-import axios from "axios";
+import AssetInfo from "../components/UploadPage/AssetInfo/AssetInfo"
+import FileUpload from "../components/UploadPage/FilesUpload/FileUpload"
+import PlatformSelect from "../components/UploadPage/PlatformSelection/PlatformSelect"
 
-const Comment = (props) => {
+import NextButton from "../components/UploadPage/NextButton"
+
+import "../components/UploadPage/Upload.css"
+
+import axios from "axios"
+import { useParams, useNavigate } from "react-router"
+
+
+const Upload = () => {
+  const navigate = useNavigate();
+
+  const { brand } = useParams()
+
+  // GLOBAL STATE
+  const brandName = brand
+
+
+  const [assetName, setAssetName] = useState({
+    name: "",
+    isUnique: true,
+    errorMsg: ""
+  })
+  const [description, setDescription] = useState("")
+  const [thumbnailFile, setThumbnailFile] = useState([])
+
 
   const [selectedfile, SetSelectedFile] = useState([])
+
+
   const [platforms, selectPlatforms] = useState({
     decentraland: false,
     sandbox: false,
@@ -15,70 +41,116 @@ const Comment = (props) => {
     clonex: false,
     snapchat: false
   })
-  const [assetName, setAssetName] = useState({
-    name: "",
-    isUnique: true,
-    errorMsg: ""
-  })
+  const [cost, setCost] = useState(0)
+  const [days, setDays] = useState(0)
 
-  const [thumbnailFile, setThumbnailFile] = useState([])
-
-
+  // UTILITY STATES
+  const [page, setPage] = useState(1)
   const [submitting, setSubmitting] = useState(false)
+  const [errorSubmitMsg, setErrorSubmitMsg] = useState("")
 
 
-  // const [errorSubmitMsg, setErrorSubmitMsg] = useState("")
+  const timer = useEffect(() => {
+    setTimeout(() => {
+      setErrorSubmitMsg("")
+    }, 5000);
 
-  const brandName = "Zara"
+    return () => clearTimeout(timer);
+  }, [errorSubmitMsg])
+
+
+  useEffect(() => {
+    if (page === 1) {
+      document.getElementById("page1").classList.add("active")
+    }
+
+    else if (page === 2) {
+      document.getElementById("page1").classList.add("completed")
+      document.getElementById("page2").classList.add("active")
+    }
+
+    else {
+      document.getElementById("page1").classList.add("completed")
+      document.getElementById("page2").classList.add("completed")
+      document.getElementById("page3").classList.add("active")
+    }
+  }, [page])
+
+
 
   const handleSumbit = async (event) => {
 
     event.preventDefault()
 
-    setSubmitting(true)
+    if (page === 1) {
 
-    let platformsArray = []
+      if (!assetName.name.length) {
+        setErrorSubmitMsg("Asset name cannot be empty")
+        return
+      }
+      else if (!assetName.isUnique) {
+        setErrorSubmitMsg("Asset name must be unique")
+        return
+      }
 
-    for (const [key, value] of Object.entries(platforms)) {
-      value === true && platformsArray.push(key)
+      setPage((prev) => prev + 1)
+      setErrorSubmitMsg("")
+
+      console.log(
+        "NAME: " + assetName.name,
+        "DESCRIPTION: " + description,
+        "THMUBNAIL: " + thumbnailFile
+      )
+
+      return
     }
 
-    let filesArray = []
+    if (page === 2) {
+      var filesArray = []
 
-    filesArray = selectedfile.map((item) => item.fileData)
+      filesArray = selectedfile.map((item) => item.fileData)
+
+      if (!filesArray.length) {
+        setErrorSubmitMsg("Upload atleast 1 file to continue")
+        return
+      }
+
+      setPage((prev) => prev + 1)
+
+      console.log("FILES: ", filesArray)
+
+      return
+    }
+
+    if (page === 3) {
+
+      var platformsArray = []
+
+      for (const [key, value] of Object.entries(platforms)) {
+        value === true && platformsArray.push(key)
+      }
+
+      if (!platformsArray.length) {
+        setErrorSubmitMsg("Please select atleast one platform")
+        return
+      }
+
+      console.log("PLATFORMS", platformsArray)
+
+    }
+
+    setSubmitting(true)
 
     var formData = new FormData()
 
-    for (let i = 0; i < filesArray.length; i++) {
-      formData.append('assets', filesArray[i])
-    }
+    formData.append('brand', brandName)
+    formData.append("name", assetName.name)
 
-    if (!assetName.name.length) {
-      console.log("Asset name cannot be empty")
-      // setErrorSubmitMsg("Asset name cannot be empty")
-      setSubmitting(false)
+    if (description.length) {
 
-      return
-    }
-    else if (!assetName.isUnique) {
-      console.log("Asset name must be unique")
-      // setErrorSubmitMsg("Asset name must be unique")
-      setSubmitting(false)
-
-      return
-    }
-    if (!filesArray.length) {
-      console.log("Upload atleast 1 file to continue")
-      // setErrorSubmitMsg("Upload atleast 1 file to continue")
-      setSubmitting(false)
-
-      return
-    }
-    else if (!platformsArray.length) {
-      console.log("Please select atleast one platform")
-      // setErrorSubmitMsg("Please select atleast one platform")
-      setSubmitting(false)
-      return
+      for (let i = 0; i < thumbnailFile.length; i++) {
+        formData.append('description', description)
+      }
     }
 
     if (thumbnailFile.length) {
@@ -88,25 +160,35 @@ const Comment = (props) => {
       }
     }
 
+    var filesArray = []
+    filesArray = selectedfile.map((item) => item.fileData)
 
-    console.log(
-      brandName,
-      assetName.name,
-      platformsArray,
-      thumbnailFile,
-      filesArray,
-      formData
-    )
+    for (let i = 0; i < filesArray.length; i++) {
+      formData.append('assets', filesArray[i])
+    }
 
-    formData.append("name", assetName.name)
-    formData.append('brand', brandName)
-    formData.append('platform', "")
+    // formData.append('platform', "")
     for (let i = 0; i < platformsArray.length; i++) {
       formData.append('platform', platformsArray[i])
     }
 
+    formData.append('approximatePrice', cost)
+    formData.append('approximateTime', days)
+
+    console.log(
+      brandName,
+      assetName.name,
+      description,
+      thumbnailFile,
+      filesArray,
+      platformsArray,
+      cost,
+      days,
+      formData
+    )
+
     axios
-      .post("http://localhost:5000/brands/upload", formData
+      .post("https://xrcdashboard.onrender.com/brands/create", formData
         , {
           headers: {
             'Access-Control-Allow-Origin': '*',
@@ -116,39 +198,172 @@ const Comment = (props) => {
       .then((response) => {
         console.log(response.data)
         setSubmitting(false)
+        navigate(`/brands/${brandName}`);
+      })
+      .catch((err) => {
+        console.log(err)
+        setSubmitting(false)
       })
 
+    console.log("Submitted")
+  }
+
+  const saveToDrafts = async (event) => {
+
+    event.preventDefault()
+
+    setSubmitting(true)
+
+    var formData = new FormData()
+
+    for (let pageNumber = 1; pageNumber <= page; pageNumber++) {
+
+      if (pageNumber === 1) {
+        console.log("gathered page 1 data")
+        if (!assetName.name.length) {
+          setErrorSubmitMsg("Asset name cannot be empty")
+          return
+        }
+        else if (!assetName.isUnique) {
+          setErrorSubmitMsg("Asset name must be unique")
+          return
+        }
+
+      }
+
+      if (pageNumber === 2) {
+
+        console.log("gathered page 2 data")
+
+        var filesArray = []
+
+        filesArray = selectedfile.map((item) => item.fileData)
+
+        if (filesArray.length) {
+
+        }
+
+      }
+
+      if (pageNumber === 3) {
+
+        console.log("gathered page 3 data")
+
+        var platformsArray = []
+
+        for (const [key, value] of Object.entries(platforms)) {
+          value === true && platformsArray.push(key)
+        }
+
+        if (platformsArray.length) {
+
+        }
+
+      }
+    }
+
+    setSubmitting(true)
+
+
+    // SAVING
+    formData.append('brand', brandName)
+    formData.append("name", assetName.name)
+
+    if (description.length) {
+      for (let i = 0; i < thumbnailFile.length; i++) {
+        formData.append('description', description)
+      }
+    }
+
+    if (thumbnailFile.length) {
+      for (let i = 0; i < thumbnailFile.length; i++) {
+        formData.append('thumbnail', thumbnailFile[i])
+      }
+    }
+
+    if (filesArray && filesArray.length) {
+      for (let i = 0; i < filesArray.length; i++) {
+        formData.append('assets', filesArray[i])
+      }
+    }
+
+    if (platformsArray && platformsArray.length) {
+      // formData.append('platform', "")
+      for (let i = 0; i < platformsArray.length; i++) {
+        formData.append('platform', platformsArray[i])
+      }
+    }
+
+    formData.append("draftPage", page)
+
+    console.log(
+      [...formData]
+    )
+
+    axios
+      .post("https://xrcdashboard.onrender.com/brands/saveasdraft", formData
+        , {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': "multipart/form-data"
+          }
+        })
+      .then((response) => {
+        console.log(response.data)
+        setSubmitting(false)
+        navigate(`/brands/${brandName}`);
+      })
+      .catch((err) => {
+        console.log(err)
+        setSubmitting(false)
+      })
+
+    console.log("Saved")
+    setErrorSubmitMsg("Saved")
   }
 
 
   return (
-    <Context.Provider value={{ files: [selectedfile, SetSelectedFile], platform: [platforms, selectPlatforms], assetData: [assetName, setAssetName], thumbnailData: [thumbnailFile, setThumbnailFile] }}>
-      <div>
+    <Context.Provider
+      value={{
+        assetData: [assetName, setAssetName],
+        thumbnailData: [thumbnailFile, setThumbnailFile],
+        descriptionData: [description, setDescription],
 
-        <FileUpload role={props.role} />
+        filesData: [selectedfile, SetSelectedFile],
 
-        {props.role === "brand" ? <PlatformSelect /> : ""}
+        platformsData: [platforms, selectPlatforms],
+        costData: [cost, setCost],
+        daysData: [days, setDays],
 
-        <div className="kb-buttons-box mt-5 text-center d-flex justify-content-left align-items-center">
-          {/* <button type="submit" className="btn btn-primary form-submit">Save to drafts</button> */}
-          <button type="submit" className="btn btn-primary form-submit" onClick={handleSumbit} style={{ marginRight: "1rem" }}>Submit</button>
-          {submitting && <div class="spinner-border" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>}
-          {/* <p className='text-danger' style={{ marginLeft: "1rem", marginBottom: "0rem" }}>{errorSubmitMsg}</p> */}
-          <p>{assetName.errorMsg}</p>
+        pager: [page, setPage],
+        submittingState: [submitting, setSubmitting],
+        errorData: [errorSubmitMsg, setErrorSubmitMsg]
+      }}
+    >
+
+      <div className="upload-container">
+
+        {page === 1 && <AssetInfo />}
+
+        {page === 2 && <FileUpload />}
+
+        {page === 3 && <PlatformSelect />}
+
+        <NextButton handleSumbit={handleSumbit} saveToDrafts={saveToDrafts} errorMsg={errorSubmitMsg} />
+
+        <div className="page-indicater">
+          <div className="page-indicater-item" id="page1">1</div>
+          <div className="page-indicater-line"></div>
+          <div className="page-indicater-item" id="page2">2</div>
+          <div className="page-indicater-line"></div>
+          <div className="page-indicater-item" id="page3">3</div>
         </div>
 
       </div>
 
     </Context.Provider>
-  );
-};
-
-Comment.defaultProps = {
-  role: "brand"
+  )
 }
 
-export default Comment;
-
-
+export default Upload

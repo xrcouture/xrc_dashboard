@@ -21,7 +21,7 @@ function Assetedit() {
     // },[])
   
     // const fetchAsset = async() =>{
-    //   await axios.post('http://localhost:5000/brands/asset',{
+    //   await axios.post('https://xrcdashboard.onrender.com/brands/asset',{
     //     brand:"Zara",
     //     name:assetName1
     //   }).then(res =>{

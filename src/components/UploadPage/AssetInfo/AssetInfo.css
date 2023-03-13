@@ -1,0 +1,23 @@
+.uc-thumbnail-bg {
+  background-color: #282760;
+  border: 0.1em dotted #0B0947;
+  text-align: center;
+  padding: 5em;
+  border-radius: 0.8rem;
+}
+
+.uc-thumbnail-bg-sm {
+  background-color: #282760;
+  /* border: 0.1em dotted #0B0947; */
+  text-align: center;
+  padding: 0.8em;
+  border-radius: 0.8rem;
+}
+
+.uc-thumbnail-bg-view {
+  background-color: #282760;
+  border: 0.1em dotted #0B0947;
+  text-align: center;
+  padding: 2em;
+  border-radius: 0.8rem;
+}

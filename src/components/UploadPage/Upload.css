@@ -1,0 +1,120 @@
+.upload-container {
+  background-color: black;
+  padding: 3em 5em;
+  height: 100%;
+}
+
+.upload-title {
+  font-family: "Clash Display Bold";
+  font-size: 3rem;
+  color: white;
+  word-spacing: 0.2em;
+}
+
+.upload-contents {
+  width: 85%;
+  margin-top: 3em;
+}
+
+.page-indicater {
+  position: fixed;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+}
+
+.page-indicater-item {
+  background-color: #373737;
+  padding: 0.5em 1em;
+  font-size: 1.5rem;
+  font-family: "Clash Display SemiBold";
+  color: #8B8B8B;
+  border-radius: 0.8rem;
+}
+
+.page-indicater-item.active {
+  background-color: #898989 !important;
+  border: 0.15em solid white;
+  color: white;
+}
+
+.page-indicater-item.completed {
+  background-color: #282760 !important;
+  border: 0.15em solid white;
+  color: white;
+}
+
+.page-indicater-line {
+  height: 10em;
+  width: 0.15em;
+  background: white;
+  margin: auto;
+}
+
+.uc-items-title {
+  font-size: 1em;
+  color: #B6B6B6;
+  font-family: "Clash Display Medium";
+  margin-bottom: 0.5em;
+  word-spacing: 0.05em;
+}
+
+.uc-items-subtitle {
+  font-size: 0.9em;
+  color: #B6B6B6;
+  font-family: "Clash Display Medium";
+}
+
+.uc-items-title-thin {
+  font-size: 1em;
+  color: #B6B6B6;
+  font-family: "Clash Display Regular";
+  word-spacing: 0.05em;
+}
+
+.uc-items-subtitle-thin {
+  font-size: 0.9em;
+  color: #B6B6B6;
+  font-family: "Clash Display Regular";
+}
+
+.uc-items-link {
+  color: #615EED;
+}
+
+.items-img-m img {
+  width: 3.5em;
+}
+
+.uc-items-input {
+  background: #2E2C6A;
+  outline: none;
+  padding: 0.6em;
+  color: white;
+  font-family: 'Clash Display SemiBold';
+  border-radius: 0.6rem;
+  width: 100%;
+  border: 0.1em solid #2E2C6A;
+  font-size: 1.2rem;
+}
+
+.uc-items-input:focus {
+  border: 0.1em solid #5553DA;
+}
+
+.uc-buttons {
+  background-color: #282760;
+  font-size: 1rem;
+  color: white;
+  font-family: "Clash Display SemiBold";
+  border: 0.1em solid #282760;
+  border-radius: 0.6rem;
+  min-width: 15em;
+  word-spacing: 0.2em;
+}
+
+.uc-buttons:hover, .uc-buttons:focus, .uc-buttons:active {
+  border: 0.1em solid #5553DA;
+  background-color: #2E2C6A;
+  color: white;
+}

@@ -14,7 +14,7 @@ const AdminPage = ({data}) => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/brands/asset", {
+      .post("https://xrcdashboard.onrender.com/brands/asset", {
         brand: brandName,
         name: assetName
       }, {

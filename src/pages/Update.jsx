@@ -1,15 +1,18 @@
-import React, { useContext } from 'react'
-import { Context } from '../../../Context'
-
+import React, { useState } from 'react'
 import shortid from "shortid"
+import axios from 'axios'
 
-import './FileUpload.css'
+import '../components/UploadPage/FilesUpload/FileUpload.css'
+import { useParams, useNavigate } from 'react-router'
 
-const FileUpload = () => {
+const Update = () => {
+  const navigate = useNavigate();
 
-  // STATES
-  const { filesData } = useContext(Context)
-  const [selectedfile, SetSelectedFile] = filesData
+  const [selectedfile, SetSelectedFile] = useState([])
+
+  const [submitting, setSubmitting] = useState(false)
+
+  const { brandName, assetName } = useParams()
 
   const filesizes = (bytes, decimals = 2) => {
     if (bytes === 0) return '0 Bytes';
@@ -22,11 +25,6 @@ const FileUpload = () => {
 
   const isValidFileUploaded = (file) => {
     const validExtensions = ["png", "jpg", "jpeg", "webp", "mp4", "mov", "pdf", "blend", "glb", "gltf", "fbx", "obj", "usd", "c4d", "max", "mb", "unitypackage", "dae", "dwg"]
-    return validExtensions.includes(file.name.substring(file.name.lastIndexOf('.') + 1, file.name.length) || file.name)
-  }
-
-  const isValidFileUploadedAdmin = (file) => {
-    const validExtensions = ["blend", "glb", "gltf", "fbx", "obj", "usd", "c4d", "max", "mb", "unitypackage", "dae", "dwg"]
     return validExtensions.includes(file.name.substring(file.name.lastIndexOf('.') + 1, file.name.length) || file.name)
   }
 
@@ -54,14 +52,14 @@ const FileUpload = () => {
         // check file type : e.target.files[i].type
         // check file size : e.target.files[i].size *done
 
-          // if (!isValidFileUploadedAdmin(e.target.files[i])) {
-          //   alert(file.name + "This file is not supported")
-          //   return;
-          // }
-          if (!isValidFileUploaded(e.target.files[i])) {
-            alert(file.name + "This file is not supported")
-            return;
-          }
+        // if (!isValidFileUploadedAdmin(e.target.files[i])) {
+        //   alert(file.name + "This file is not supported")
+        //   return;
+        // }
+        if (!isValidFileUploaded(e.target.files[i])) {
+          alert(file.name + "This file is not supported")
+          return;
+        }
 
 
         if (e.target.files[i].size > 20971520) {
@@ -100,10 +98,60 @@ const FileUpload = () => {
 
   }
 
+  const handleClick = async (event) => {
+
+    event.preventDefault()
+
+    var filesArray = []
+
+    filesArray = selectedfile.map((item) => item.fileData)
+
+    if (!filesArray.length) {
+      console("Upload atleast 1 file to continue")
+      return
+    }
+
+    setSubmitting(true)
+
+    console.log("FILES: ", filesArray)
+
+    var formData = new FormData()
+
+    formData.append('brand', brandName)
+    formData.append("name", assetName)
+
+    for (let i = 0; i < filesArray.length; i++) {
+      formData.append('assets', filesArray[i])
+    }
+
+    console.log([...formData])
+
+    axios
+      .post("https://xrcdashboard.onrender.com/brands/update", formData
+        , {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': "multipart/form-data"
+          }
+        })
+      .then((response) => {
+        console.log(response.data)
+        setSubmitting(false)
+        navigate(`/brands/${brandName}`);
+      })
+      .catch((err) => {
+        console.log(err)
+        setSubmitting(false)
+      })
+
+    console.log("Submitted")
+  }
+
+
   return (
 
-    <div className='d-flex flex-column'>
-      <div className='upload-title'>Upload Files</div>
+    <div className='d-flex flex-column' style={{ background: "#000", padding: "3em 5em", height: "100%" }}>
+      <div className='upload-title'>Upload Requested Files</div>
 
       <div className="fileupload-view upload-contents">
         <div className="row justify-content-center m-0">
@@ -162,9 +210,17 @@ const FileUpload = () => {
         </div>
       </div>
 
+      <div className="kb-buttons-box mt-5 text-center d-flex justify-content-left align-items-center">
+        <button disabled={submitting} type="submit" className="form-submit uc-buttons" onClick={handleClick} style={{ marginRight: "1rem" }}>Submit</button>
+        {submitting ?
+          <div class="spinner-border text-light" role="status" style={{ alignSelf: "end", marginBottom: "0.7em" }}>
+            <span class="sr-only">Loading...</span>
+          </div> : ""}
+        {/* <p>{props.errorMsg}</p> */}
+      </div>
     </div>
 
   );
 }
 
-export default FileUpload
+export default Update

@@ -1403,7 +1403,7 @@ export default function MyComponent(props) {
             name: [row.assetName],
           });
           await axios
-            .delete("http://localhost:5000/brands/delete", {
+            .delete("https://xrcdashboard.onrender.com/brands/delete", {
               data: {
                 brand: row.brandName,
                 name: [row.assetName],
@@ -1540,7 +1540,7 @@ export default function MyComponent(props) {
             name: name,
           });
           await axios
-            .delete("http://localhost:5000/brands/delete", {
+            .delete("https://xrcdashboard.onrender.com/brands/delete", {
               data: {
                 brand: brand,
                 name: name,

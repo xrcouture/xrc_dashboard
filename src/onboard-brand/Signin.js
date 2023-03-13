@@ -14,6 +14,7 @@ import "./signup.css";
 import Cookies from "universal-cookie";
 import useFetch from "../hooks/useFetch";
 import GoogleLogin from "react-google-login";
+import { CListGroup } from "@coreui/react";
 
 function Signin() {
   const [loading, setLoading] = useState(false);
@@ -63,7 +64,7 @@ function Signin() {
                 
                 
                 axios
-                  .post("http://localhost:5000/auth/signin", values)
+                  .post("https://xrcdashboard.onrender.com/auth/signin", values)
                   .then((res) => {
                     setCookie('refreshToken', res.data.refreshToken, { path: '/' });
                     setCookie('accessToken', res.data.accessToken, { path: '/' });
@@ -71,7 +72,8 @@ function Signin() {
                     localStorage.setItem('role', res.data.role);
                     localStorage.setItem('brand', res.data.brand);
                     setSignup(res.data.signUpCompleted);
-                    console.log(res)
+                    
+                    console.log(res.data.brand)
                     if(res.data.role === "admin"){
                       setTimeout(function () {
                             window.location.replace("/admin/brands");
@@ -81,13 +83,15 @@ function Signin() {
 
                     if (res.data.signUpCompleted === true) {
                       setTimeout(function () {
-                        window.location.replace("/");
+                        window.location.replace(`/brands/${res.data.brand}`)
                       }, 500);
                     } else {
                       setTimeout(function () {
                         window.location.replace("/brand-data");
                       }, 500);
                     }
+                    setLoading(false)
+
                   })
                   .catch((err) => {
                       setLoading(false)

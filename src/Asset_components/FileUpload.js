@@ -30,7 +30,7 @@ const FileUpload = (props) => {
   useEffect(() => {
     console.log("fectching data")
     axios
-      .post("http://localhost:5000/brands/assetNames", {
+      .post("https://xrcdashboard.onrender.com/brands/assetNames", {
         brand: "Zara"
       }, {
         headers: {
@@ -45,7 +45,7 @@ const FileUpload = (props) => {
   }, [])
 
   const fetchAsset = async() =>{
-    await axios.post('http://localhost:5000/brands/asset',{
+    await axios.post('https://xrcdashboard.onrender.com/brands/asset',{
       brand:"Zara",
       name:assetName1
     }).then(res =>{

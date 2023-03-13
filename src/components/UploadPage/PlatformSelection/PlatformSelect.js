@@ -1,25 +1,22 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
+
+import { Context } from '../../../Context'
+
 import PriceEstimation from '../Estimation/PriceEstimation'
-import './PlatformSelect.css'
+
 import sandboxImg from '../../../assets/snapar.png'
 import snapchatImg from '../../../assets/snap.png'
 import zepetoImg from '../../../assets/zepeto.png'
 import clonexImg from '../../../assets/clonex.png'
 import decentralandImg from '../../../assets/decenterland.png'
-import { Context } from '../../../Context'
+
+import './PlatformSelect.css'
 
 const PlatformSelect = () => {
 
-  // const [platforms, selectPlatforms] = useState({
-  //   sandbox: false,
-  //   snapchat: false,
-  //   zepeto: false,
-  //   clonex: false,
-  //   decentraland: false
-  // })
-
-  const { platform } = useContext(Context)
-  const [platforms, selectPlatforms] = platform
+  // STATES
+  const { platformsData } = useContext(Context)
+  const [platforms, selectPlatforms] = platformsData
 
   const handleClick = (e) => {
     const { name } = e.target
@@ -34,49 +31,70 @@ const PlatformSelect = () => {
   return (
     <div>
 
-      <h4>
-        Choose Platforms
-      </h4>
+      <div className='upload-title'>Choose Platforms</div>
 
-      <div className='d-flex justify-content-around mt-5 mb-5'>
-        <div className=''>
-          <img src={sandboxImg} alt=''></img>
-          <div>
-            <input checked={platforms.sandbox} onChange={handleClick} type="checkbox" style={{cursor: "pointer"}} name="sandbox" /> Sandbox
+      <div className='d-flex flex-column align-items-center upload-contents'>
+
+        <div className='d-flex'>
+          <div className='platforms-checkbox-container'>
+            <label className='platforms-checkbox' htmlFor="customCheckbox1">
+              <img src={sandboxImg} alt=''></img>
+              <span className='uc-items-title text-white' style={{ marginLeft: "0.5em", marginBottom: "0" }}>Sandbox</span>
+            </label>
+            <div className={platforms.sandbox ? 'pl-checkboxes check' : 'pl-checkboxes'}></div>
+            <input id='customCheckbox1' checked={platforms.sandbox} onChange={handleClick} type="checkbox" style={{ cursor: "pointer", display: "none" }} name="sandbox" />
+          </div>
+
+          <div className='platforms-checkbox-container'>
+            <label className='platforms-checkbox' htmlFor="customCheckbox2">
+              <img src={snapchatImg} alt=''></img>
+              <span className='uc-items-title text-white' style={{ marginLeft: "0.5em", marginBottom: "0" }}>Snapchat AR</span>
+            </label>
+            <div className={platforms.snapchat ? 'pl-checkboxes check' : 'pl-checkboxes'}></div>
+            <input id='customCheckbox2' checked={platforms.sandbox} onChange={handleClick} type="checkbox" style={{ cursor: "pointer", display: "none" }} name="snapchat" />
+          </div>
+
+          <div className='platforms-checkbox-container'>
+
+            <label className='platforms-checkbox' htmlFor="customCheckbox3">
+              <img src={zepetoImg} alt=''></img>
+              <span className='uc-items-title text-white' style={{ marginLeft: "0.5em", marginBottom: "0" }}>Zepeto</span>
+            </label>
+
+            <div className={platforms.zepeto ? 'pl-checkboxes check' : 'pl-checkboxes'}></div>
+            <input id='customCheckbox3' checked={platforms.zepeto} onChange={handleClick} type="checkbox" style={{ cursor: "pointer", display: "none" }} name="zepeto" />
           </div>
         </div>
 
-        <div className=''>
-          <img src={snapchatImg} alt=''></img>
-          <div>
-            <input checked={platforms.snapchat} onChange={handleClick} type="checkbox" style={{cursor: "pointer"}} name="snapchat" /> Snapchat AR
-          </div>
-        </div>
+        <div className='d-flex'>
+          <div className='platforms-checkbox-container'>
 
-        <div className=''>
-          <img src={zepetoImg} alt=''></img>
-          <div>
-            <input checked={platforms.zepeto} onChange={handleClick} type="checkbox" style={{cursor: "pointer"}} name="zepeto" /> Zepeto
-          </div>
-        </div>
+            <label className='platforms-checkbox' htmlFor="customCheckbox4">
+              <img src={clonexImg} alt=''></img>
+              <span className='uc-items-title text-white' style={{ marginLeft: "0.5em", marginBottom: "0" }}>Clone X</span>
+            </label>
 
-        <div className=''>
-          <img src={clonexImg} alt=''></img>
-          <div>
-            <input checked={platforms.clonex} onChange={handleClick} type="checkbox" style={{cursor: "pointer"}} name="clonex" /> Clone X
-          </div>
-        </div>
+            <div className={platforms.clonex ? 'pl-checkboxes check' : 'pl-checkboxes'}></div>
+            <input id='customCheckbox4' checked={platforms.clonex} onChange={handleClick} type="checkbox" style={{ cursor: "pointer", display: "none" }} name="clonex" />
 
-        <div className=''>
-          <img src={decentralandImg} alt=''></img>
-          <div>
-            <input checked={platforms.decentraland} onChange={handleClick} type="checkbox" style={{cursor: "pointer"}} name="decentraland" /> Decentraland
+          </div>
+
+          <div className='platforms-checkbox-container'>
+
+            <label className='platforms-checkbox' htmlFor="customCheckbox5">
+              <img src={decentralandImg} alt=''></img>
+              <span className='uc-items-title text-white' style={{ marginLeft: "0.5em", marginBottom: "0" }}>Decentraland</span>
+            </label>
+
+            <div className={platforms.decentraland ? 'pl-checkboxes check' : 'pl-checkboxes'}></div>
+            <input id='customCheckbox5' checked={platforms.decentraland} onChange={handleClick} type="checkbox" style={{ cursor: "pointer", display: "none" }} name="decentraland" />
+
           </div>
         </div>
       </div>
 
 
-      {/* <PriceEstimation platforms={platforms} /> */}
+      <PriceEstimation platforms={platforms} />
     </div>
   )
 }

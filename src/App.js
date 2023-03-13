@@ -20,6 +20,9 @@ import { useEffect } from "react";
 import ManageAssets from "./Asset_components/ManageAssets";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Upload from "./pages/Upload"
+import AdminPage from "./pages/AdminPage";
+import Update from "./pages/Update";
+import AssetView from "./pages/AssetView";
 import Upload1 from './Asset_components/Upload'
 import Assetedit from "./Asset_components/Assetedit";
 import Dashboard1 from "./New-src/Dashboard/Dashboard/Dashboard";
@@ -27,6 +30,7 @@ import 'swiper/css';
 import ChatBody from "./components/chatBody/ChatBody";
 import AdminDashboard from "./New-src/AdminDashboard/AdminDashboard";
 import AdminBrand from "./New-src/AdminDashboard/Pages/AdminPage/Dashboard";
+import ProtectedRoutes from "./ProtectedRoute";
 import Signin1 from "./onboard-brand/Signin";
 
 function App() {
@@ -57,21 +61,31 @@ function App() {
     {
       <Sidebar>
         <Routes>
-          <Route path="/" exact element={<Dashboard1 />} />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/collections" element={<About />} />
           <Route path="/asset" element={<Comment />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/product" element={<Product />} />
-          <Route path="/productList" element={<ProductList />} />
-          <Route path="/:brands/assets" element={<ManageAssets />} />
-          <Route path="/upload" element={<Upload />} />
-          <Route path="/:brands/:assetName1/view" element={<Upload1 />} />
-          <Route path="/admin/upload" element={<Upload role="admin" />} />
-          {/* <Route path="/:brands/:assetName1/edit" element={<Assetedit />} /> */}
           <Route path="/support" element={<ChatBody />} />
-          <Route path="/admin/brands" element={<AdminDashboard />} />
-          <Route path="/admin/:brand/assets" element={<AdminBrand />} />
+
+
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/brands/:brandName" exact element={<Dashboard1 />} />
+            <Route path="/brands/:brand/create" element={<Upload />} />
+            <Route path="/admin/brands" element={<AdminDashboard />} />
+            <Route path="/admin/:brand/assets" element={<AdminBrand />} />
+            <Route path="/brands/:brands/:assetName1" element={<AssetView />} />
+            <Route path="/:brands/:assetName1" element={<AssetView />} />
+            <Route path="/brands/:brandName/:assetName/update" element={<Update />} />
+          </Route>
+
+
+          {/* <Route path="/admin/upload" element={<AdminPage />} /> */}
+          {/* <Route path="/:brands/:assetName1" element={<Upload1 />} /> */}
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          {/* <Route path="/productList" element={<ProductList />} /> */}
+          {/* <Route path="/:brands/assets" element={<ManageAssets />} /> */}
+          {/* <Route path="/:brands/:assetName1/edit" element={<Assetedit />} /> */}
+
         </Routes>
       </Sidebar>
     }

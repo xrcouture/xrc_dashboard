@@ -155,7 +155,7 @@ export default function MyComponent(props) {
           selector: 'assetName',
           sortable: true,
           cell:(row)=>(
-            <Link to={`/Zara/${row.assetName}`}>{row.assetName}</Link>
+            <Link to={`/${row.brandName}/${row.assetName}`}>{row.assetName}</Link>
           )
       },
       {
@@ -1073,7 +1073,7 @@ export default function MyComponent(props) {
   //             brand:brand,
   //             name:[row.assetName]
   //           })
-  //           await axios.delete("http://localhost:5000/brands/delete",{data:{
+  //           await axios.delete("https://xrcdashboard.onrender.com/brands/delete",{data:{
   //             brand:brand,
   //             name:[row.assetName]
   //           }}).then(res => {
@@ -1248,7 +1248,7 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => (
       //       brand:"Zara",
       //       name:name
       //     })
-      //     await axios.delete("http://localhost:5000/brands/delete",{data:{
+      //     await axios.delete("https://xrcdashboard.onrender.com/brands/delete",{data:{
       //       brand:"Zara",
       //       name:name
       //     }}).then(res => {
@@ -1321,7 +1321,7 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => (
                 console.log(files[p])
                 formdata.append('assets',files[p])
               })
-              await axios.post("http://localhost:5000/admin/upload",formdata).then(res=>{
+              await axios.post("https://xrcdashboard.onrender.com/admin/upload",formdata).then(res=>{
                           setPending(true)
                           fetchAsset()
                           setAssetList(filteredItems)
@@ -1347,7 +1347,7 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => (
           console.log(files[p])
           formdata.append('assets',files[p])
         })
-        await axios.post("http://localhost:5000/admin/upload",formdata).then(res => {
+        await axios.post("https://xrcdashboard.onrender.com/admin/upload",formdata).then(res => {
           
         })
         console.log([...formdata])
