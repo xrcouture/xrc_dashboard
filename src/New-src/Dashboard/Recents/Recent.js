@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import './Recent.css'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
@@ -9,7 +9,30 @@ import {MdOutlinePendingActions} from 'react-icons/md'
 import {IoCheckmarkDone} from 'react-icons/io5'
 import R1 from './R1.png'
 import MyComponent from '../../../Asset_components/basic';
+import axios from 'axios';
+
 function Recent(props) {
+  const [pending, setPending] = useState(false);
+  const [data, setData] = useState([]);
+  const [asset, setAsset] = useState();
+  const fetchAsset = async() =>{
+    await axios.get('https://xrcdashboard.onrender.com/admin/getAssets').then(res =>{
+      setData(res.data.assets)
+      res.data.assets.filter((i)=>{
+        if(i.brand === localStorage.getItem('brand')){
+          setAsset(i)
+        }
+      })
+  }).catch(e=>console.log(e))
+  setPending(false)
+  }
+
+  useEffect(() => {
+    setPending(true);
+    fetchAsset()
+    console.log(asset)
+  }, []);
+
   return (
     <div style={{position:"relative"}}>
       <h1 className='text-white mt-4 ml-4'>Recents</h1>
@@ -22,6 +45,20 @@ function Recent(props) {
           navigation
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
+          breakpoints = {{
+            640: {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+            },
+          }}
         >
           <SwiperSlide>
             <div className='card-recents'>
@@ -162,7 +199,7 @@ function Recent(props) {
               <VscOpenPreview />
               </div>
               <h4 className='under-review-text'>Under Review</h4> 
-              <span className='under-review-percentage'>50</span>
+              <span className='under-review-percentage'>{asset['Under Review'] ? asset['Under Review'] : 0 }</span>
             </div>
             <div className='under-review pt-4'>
               <div className='under-review-icon action-needed-icon'>
@@ -176,13 +213,13 @@ function Recent(props) {
               <MdOutlinePendingActions />
               </div>
               <h4 className='under-review-text pending-icon'>Payment Pending</h4> 
-              <span className='under-review-percentage'>50</span>
+              <span className='under-review-percentage'>{asset['Pending payment'] ? asset['Pending payment']:0}</span>
             </div>
             <div className='under-review pt-4'>
               <div className='under-review-icon completed-icon'>
               <IoCheckmarkDone />
               </div>
-              <h4 className='under-review-text completed-icon'>Completed</h4> 
+              <h4 className='under-review-text completed-icon'>{asset['Completed'] ? asset['Completed']:0}</h4> 
               <span className='under-review-percentage'>50</span>
             </div>
           </div>

@@ -132,8 +132,6 @@ function Dashboard() {
                         </a>
                     </div>
                 </div>
-                {/* 
-                <div className='notification-box1'></div> */}
                 </div>
                 </div>
             </div>
